@@ -71,7 +71,6 @@ class Buty(Ui_MainWindow):
         self.meta_data.save(self.path_file_1, self.meta_1)
         self.meta_data.save(self.path_file_2, self.meta_2)
 
-    # переопределённые данные которые необходимо обновлять во время работы программы
     def Ui_chenges(self):
         # переопределённые данные которые необходимо обновлять во время работы программы
         icon = QtGui.QIcon()
