@@ -1,8 +1,10 @@
-from Help_Fn.functions import *
+import subprocess
+import os
 
 
-files = Files()
 
-path = files.get_tree('f:\Work area\Buty NN\Buty_frames', ['jpg', 'bat'])
+path = os.path.abspath(os.path.join(os.path.dirname(__file__), '.', 'menus', 'first_start.py'))
 
-print(files.get_deep_file(path[0], None, 1))
+path = "F:/Work area/KKI/Code/menus/first_start.py"
+
+subprocess.call(('python', path))

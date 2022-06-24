@@ -1,24 +1,17 @@
-from pyqt_files.menu_1.menu_1 import *
-from Help_Fn.functions import *
+import Global.first_start
+import subprocess
+import os
 
-class Start(Ui_Dialog):
-    def __init__(self, Dialog):
-        super(Start, self).__init__()
-        self.setupUi(Dialog)
+path_first_start_chek = os.path.abspath(os.path.join(os.path.dirname(__file__), '.', 'Global', 'first_start.py'))
+path_first_start_menu = os.path.abspath(os.path.join(os.path.dirname(__file__), '.', 'menus', 'first_start.py'))
+path_global_menu = os.path.abspath(os.path.join(os.path.dirname(__file__), '.', 'menus', 'global_menu.py'))
 
-        self.Dialog = Dialog
-        self.Dialog.resize(1200, 1000)
+with open(path_first_start_chek, 'r') as file:
+    first_start = file.read()
 
-        self.Ui_chenges()
-        # self.retranslateUi_chenges()
+if first_start == 'True':
+    with open(os.path.abspath(os.path.join(os.path.dirname(__file__), '.', 'Global', 'first_start.py')), 'w') as file:
+        file.write('None')
+    subprocess.call(('python', path_first_start_menu))
 
-    def Ui_chenges(self):
-        self.verticalWidget.setGeometry(QtCore.QRect(20, 30, int(self.Dialog.width()*0.95), int(self.Dialog.height()*0.95)))
-
-
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Start(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+subprocess.call(('python', path_global_menu))

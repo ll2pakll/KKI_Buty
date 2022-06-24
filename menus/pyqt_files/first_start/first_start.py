@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'menu_1.ui'
+# Form implementation generated from reading ui file 'first_start.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -64,7 +64,7 @@ class Ui_Dialog(object):
 "Так же вы можете менять непонравившиеся вам карты, а те, что нравятся наделять уникальными возможностями, делая вашу коллекцию сильнее.\n"
 "Соберите свою уникальную коллекцию и занимайте первые места в рейтинговых соревнованиях и турнирах.\n"
 ""))
-        self.Explanation_2.setText(_translate("Dialog", "Для перехода в следующее меню нажмите «Ок»"))
+        self.Explanation_2.setText(_translate("Dialog", "Для перехода в следующее меню закрой это окно"))
 
 
 if __name__ == "__main__":
