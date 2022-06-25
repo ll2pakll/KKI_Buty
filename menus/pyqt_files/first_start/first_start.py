@@ -43,11 +43,6 @@ class Ui_Dialog(object):
         self.Explanation_2.setAlignment(QtCore.Qt.AlignCenter)
         self.Explanation_2.setObjectName("Explanation_2")
         self.verticalLayout.addWidget(self.Explanation_2)
-        self.buttonBox = QtWidgets.QDialogButtonBox(self.verticalWidget)
-        self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName("buttonBox")
-        self.verticalLayout.addWidget(self.buttonBox)
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -64,7 +59,7 @@ class Ui_Dialog(object):
 "Так же вы можете менять непонравившиеся вам карты, а те, что нравятся наделять уникальными возможностями, делая вашу коллекцию сильнее.\n"
 "Соберите свою уникальную коллекцию и занимайте первые места в рейтинговых соревнованиях и турнирах.\n"
 ""))
-        self.Explanation_2.setText(_translate("Dialog", "Для перехода в следующее меню закрой это окно"))
+        self.Explanation_2.setText(_translate("Dialog", "Для перехода в следующее меню закройте это окно"))
 
 
 if __name__ == "__main__":

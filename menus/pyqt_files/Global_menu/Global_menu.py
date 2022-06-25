@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Global_menu.ui'
+# Form implementation generated from reading ui file 'global_menu.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -14,11 +14,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Global_menu(object):
     def setupUi(self, Global_menu):
         Global_menu.setObjectName("Global_menu")
-        Global_menu.resize(800, 600)
+        Global_menu.resize(1200, 1000)
         self.centralwidget = QtWidgets.QWidget(Global_menu)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(9, 19, 781, 561))
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(9, 19, 1181, 971))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
