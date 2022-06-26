@@ -4,6 +4,7 @@ import cv2
 import os
 import sys
 import random
+import pickle
 
 # Считывание, запись и удаление метаданных
 class Meta_data:

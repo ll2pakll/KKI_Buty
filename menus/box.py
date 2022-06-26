@@ -1,11 +1,12 @@
-from Buty.Buty_interface import *
+from pyqt_files.box.box import *
 from Help_Fn.functions import *
+from Global.variables import *
 
 
 
-class Buty(Ui_MainWindow):
+class Box(Ui_MainWindow):
     def __init__(self, MainWindow):
-        super(Buty, self).__init__()
+        super(Box, self).__init__()
         self.setupUi(MainWindow)
 
         #Static:
@@ -15,7 +16,9 @@ class Buty(Ui_MainWindow):
         self.meta_data = Meta_data()
 
         #paths:
-        self.paths_list = self.files.get_tree(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Buty_frames')))
+        self.paths_list = self.files.get_tree(path_global_collection)
+        with open(path_collection, 'rb') as f:
+            self.collction = pickle.load(f)
         self.len_paths_list = len(self.paths_list)
         self.path_generator = Path_generator(self.paths_list)
 
@@ -93,6 +96,6 @@ class Buty(Ui_MainWindow):
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui = Buty(MainWindow)
+    ui = Box(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())

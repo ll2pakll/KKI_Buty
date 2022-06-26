@@ -1,10 +1,4 @@
-import subprocess
-import os
+d = {a:[a*2, 1] for a in range(7)}
 
-
-
-path = os.path.abspath(os.path.join(os.path.dirname(__file__), '.', 'menus', 'first_start.py'))
-
-path = "F:/Work area/KKI/Code/menus/first_start.py"
-
-subprocess.call(('python', path))
+for i in d.items():
+    print(i)
