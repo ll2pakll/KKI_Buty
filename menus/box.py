@@ -1,3 +1,5 @@
+import sys
+
 from pyqt_files.box.box import *
 from Help_Fn.functions import *
 from Global.variables import *
@@ -22,10 +24,10 @@ class Box(Ui_MainWindow):
         self.len_paths_list = len(self.paths_list)
         self.path_generator = Path_generator(self.paths_list)
 
-        #создаём пути для первых фотографий
-        self.get_paths_and_metas()
-
         #variables:
+        if len(sys.argv) > 1:
+            self.boxes_number = int(sys.argv[1]) + 1
+        else: self.boxes_number = float('inf')
 
         #----------------------------------------------------------------------------
 
@@ -34,6 +36,10 @@ class Box(Ui_MainWindow):
 
     # функция которую надо запускать что бы обновить окно и данные
     def actions(self):
+        self.boxes_number -= 1
+        if not self.boxes_number:
+            sys.exit()
+        self.get_paths_and_metas()
         self.Ui_chenges()
         self.retranslateUi_1(MainWindow)
 
@@ -49,16 +55,17 @@ class Box(Ui_MainWindow):
             self.meta_2['scores'] -= 1
             self.meta_1['history_comparison'].add(self.files.get_deep_file(self.path_file_2, -2))
             self.meta_2['history_comparison'].add(self.files.get_deep_file(self.path_file_1, -2))
-            self.both_metadata_save()
-            self.get_paths_and_metas()
+            self.collction[self.files.get_deep_file(self.path_file_1, -2)] = dict()
 
         elif btn_name == "img_2":
             self.meta_2['scores'] += 1
             self.meta_1['scores'] -= 1
             self.meta_1['history_comparison'].add(self.files.get_deep_file(self.path_file_2, -2))
             self.meta_2['history_comparison'].add(self.files.get_deep_file(self.path_file_1, -2))
-            self.both_metadata_save()
-            self.get_paths_and_metas()
+            self.collction[self.files.get_deep_file(self.path_file_2, -2)] = dict()
+
+        self.both_metadata_save()
+        pickle_save(self.collction, path_collection)
         self.actions()
 
     def get_paths_and_metas(self):

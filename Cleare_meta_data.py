@@ -1,9 +1,10 @@
 from Help_Fn.functions import *
+from Global.variables import *
 
 files = Files()
 metadata = Meta_data()
 
-path_tree = files.get_tree(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Buty_frames')))
+path_tree = files.get_tree(path_global_collection)
 
 for path in path_tree:
     metadata.clear(path)

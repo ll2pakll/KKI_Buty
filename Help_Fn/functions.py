@@ -73,6 +73,8 @@ class Files:
         path = path.split('\\')[deep: deep_2]
         return os.path.join(*path)
 
+
+
 class Path_generator:
     '''Генератор путей, который ищет пару для фото которые ещё не сравнивались'''
     def __init__(self, paths_list):
@@ -96,10 +98,8 @@ class Path_generator:
         if path_1 != path_2 \
         and self.files.get_deep_file(path_1, -2) not in meta_2['history_comparison'] \
         and self.files.get_deep_file(path_1, -2, -1) != meta_2['name']:
-            print(1)
             return path_1, path_2, meta_1, meta_2
         else:
-            print(2)
             return self.get_paths()
 
 
@@ -113,3 +113,6 @@ class Path_generator:
                     if self.files.get_deep_file(path, -2, -1) != meta['name']:
                         return path
 
+def pickle_save(obj, path):
+    with open(path, 'wb') as f:
+        pickle.dump(obj, f)
