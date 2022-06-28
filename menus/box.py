@@ -1,5 +1,3 @@
-import sys
-
 from pyqt_files.box.box import *
 from Help_Fn.functions import *
 from Global.variables import *
