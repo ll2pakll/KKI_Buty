@@ -7,10 +7,11 @@
     <list default="true" id="ec4758e8-e33a-46fa-97ac-f4bf59ce9464" name="Changes" comment="Развитие">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Collection/collection.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/Collection/collection.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Global/variables.py" beforeDir="false" afterPath="$PROJECT_DIR$/Global/variables.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Help_Fn/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/Help_Fn/functions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Start.py" beforeDir="false" afterPath="$PROJECT_DIR$/Start.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menus/box.py" beforeDir="false" afterPath="$PROJECT_DIR$/menus/box.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/menus/collection.py" beforeDir="false" afterPath="$PROJECT_DIR$/menus/collection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menus/pyqt_files/collection/collection.py" beforeDir="false" afterPath="$PROJECT_DIR$/menus/pyqt_files/collection/collection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/menus/global_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/menus/global_menu.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,28 +53,7 @@
       <recent name="F:\Work area\KKI\Code\menus" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.collection (1)">
-    <configuration name="Delete_meta_data" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Code" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Delete_meta_data.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.Start (1)">
     <configuration name="Start (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Code" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -158,13 +138,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="global_menu" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Code" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/menus" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/menus/global_menu.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.collection (1)" />
-        <item itemvalue="Python.box (1)" />
         <item itemvalue="Python.Start (1)" />
+        <item itemvalue="Python.collection (1)" />
+        <item itemvalue="Python.global_menu" />
+        <item itemvalue="Python.box (1)" />
         <item itemvalue="Python.collection" />
-        <item itemvalue="Python.Delete_meta_data" />
       </list>
     </recent_temporary>
   </component>
@@ -247,7 +248,14 @@
       <option name="project" value="LOCAL" />
       <updated>1656401729436</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Развитие">
+      <created>1656464039766</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1656464039766</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

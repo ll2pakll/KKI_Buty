@@ -5,6 +5,7 @@ import os
 import sys
 import random
 import pickle
+import subprocess
 
 # Считывание, запись и удаление метаданных
 class Meta_data:

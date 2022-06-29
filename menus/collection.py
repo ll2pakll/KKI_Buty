@@ -41,7 +41,8 @@ class Collection_manual(Ui_Collection):
 
         icon = QtGui.QIcon()
         for i in range(len(self.button_list)):
-            icon.addPixmap(QtGui.QPixmap("../../Global_collection/DataFaces/"+self.collection_list[i]).scaled(512, 512), QtGui.QIcon.Normal,
+            icon.addPixmap(QtGui.QPixmap("../../Global_collection/DataFaces/"+self.collection_list[i]).scaled(512, 512),
+                           QtGui.QIcon.Normal,
                            QtGui.QIcon.On)
             _translate = QtCore.QCoreApplication.translate
             self.button_list[i].setIcon(icon)
@@ -49,8 +50,10 @@ class Collection_manual(Ui_Collection):
             self.button_list[i].setText(_translate("Collection", ""))
 
 if __name__ == "__main__":
+    print(os.path.abspath(os.path.join(os.path.dirname(__file__))))
+    os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__))))
     app = QtWidgets.QApplication(sys.argv)
-    Collection = QtWidgets.QMainWindow()
-    ui = Collection_manual(Collection)
-    Collection.show()
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Collection_manual(MainWindow)
+    MainWindow.show()
     sys.exit(app.exec_())

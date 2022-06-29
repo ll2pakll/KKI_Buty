@@ -12,3 +12,4 @@ path_box = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'menus'
 path_global_menu = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'menus', 'global_menu.py'))
 path_collection = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'collection', 'collection.pkl'))
 path_global_collection = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'Global_collection'))
+path_global_collection_py = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'menus', 'collection.py'))
