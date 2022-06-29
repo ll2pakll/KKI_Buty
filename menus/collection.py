@@ -1,6 +1,7 @@
 from pyqt_files.collection.collection import *
 from Help_Fn.functions import *
 from Global.variables import *
+from PyQt5.QtWidgets import QDesktopWidget
 
 
 class Collection_manual(Ui_Collection):
@@ -34,6 +35,15 @@ class Collection_manual(Ui_Collection):
                             self.pushButton_11,
                             self.pushButton_12]
         self.Ui_chenges()
+        self.location_on_the_screen()
+
+    def location_on_the_screen(self):
+        sg = QDesktopWidget().screenGeometry()
+        widget = self.Collection.geometry()
+
+        x = int(sg.width()*0.5) - int(widget.width()*0.6)
+        y = int(sg.height()*0.5) - int(widget.height()*0.9)
+        self.Collection.move(x, y)
 
     def Ui_chenges(self):
         # переопределённые данные которые необходимо обновлять во время работы программы
@@ -50,7 +60,6 @@ class Collection_manual(Ui_Collection):
             self.button_list[i].setText(_translate("Collection", ""))
 
 if __name__ == "__main__":
-    print(os.path.abspath(os.path.join(os.path.dirname(__file__))))
     os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__))))
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
