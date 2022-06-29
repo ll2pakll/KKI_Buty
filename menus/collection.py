@@ -8,7 +8,19 @@ class Collection_manual(Ui_Collection):
         super(Collection_manual, self).__init__()
         self.setupUi(Collection)
 
+        # Classs
+        self.Files = Files()
         self.Collection = Collection
+
+        with open(path_collection, 'rb') as f:
+            self.collection = pickle.load(f)
+        self.collection_list = list()
+        for k, i in self.collection.items():
+            self.collection_list.append(k)
+
+        self.collection_list = sorted(self.collection_list)
+
+
         self.button_list = [self.pushButton_1,
                             self.pushButton_2,
                             self.pushButton_3,
@@ -28,12 +40,13 @@ class Collection_manual(Ui_Collection):
         self.Collection.resize(1920, 1080)
 
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../../Global_collection/DataFaces/00000.jpg"), QtGui.QIcon.Normal,
-                       QtGui.QIcon.Off)
-        _translate = QtCore.QCoreApplication.translate
-        for i in self.button_list:
-            i.setIcon(icon)
-            i.setText(_translate("Collection", ""))
+        for i in range(len(self.button_list)):
+            icon.addPixmap(QtGui.QPixmap("../../Global_collection/DataFaces/"+self.collection_list[i]).scaled(512, 512), QtGui.QIcon.Normal,
+                           QtGui.QIcon.On)
+            _translate = QtCore.QCoreApplication.translate
+            self.button_list[i].setIcon(icon)
+            self.button_list[i].setIconSize(QtCore.QSize(512, 512))
+            self.button_list[i].setText(_translate("Collection", ""))
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

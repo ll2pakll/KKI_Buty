@@ -12,8 +12,7 @@ if first_start == 'True':
         file.write('None')
     subprocess.call(('python', path_first_start_menu))
     subprocess.call(('python', path_tutorial_1))
-    if not os.path.isfile(path_collection):
-        pickle_save(dict(), path_collection)
+
 subprocess.call(('python', path_box, '2'))
 
 subprocess.call(('python', path_global_menu))

@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec4758e8-e33a-46fa-97ac-f4bf59ce9464" name="Changes" comment="Развитие">
-      <change afterPath="$PROJECT_DIR$/menus/collection.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Help_1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Help_2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Collection/collection.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/Collection/collection.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Start.py" beforeDir="false" afterPath="$PROJECT_DIR$/Start.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/menus/box.py" beforeDir="false" afterPath="$PROJECT_DIR$/menus/box.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/menus/collection.py" beforeDir="false" afterPath="$PROJECT_DIR$/menus/collection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/menus/pyqt_files/collection/collection.py" beforeDir="false" afterPath="$PROJECT_DIR$/menus/pyqt_files/collection/collection.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,9 +161,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.collection (1)" />
-        <item itemvalue="Python.collection" />
-        <item itemvalue="Python.Start (1)" />
         <item itemvalue="Python.box (1)" />
+        <item itemvalue="Python.Start (1)" />
+        <item itemvalue="Python.collection" />
         <item itemvalue="Python.Delete_meta_data" />
       </list>
     </recent_temporary>
@@ -232,7 +233,21 @@
       <option name="project" value="LOCAL" />
       <updated>1656316635319</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Развитие">
+      <created>1656401715091</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1656401715091</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Развитие">
+      <created>1656401729436</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1656401729436</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

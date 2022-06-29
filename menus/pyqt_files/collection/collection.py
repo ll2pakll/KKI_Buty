@@ -29,6 +29,7 @@ class Ui_Collection(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("../../Global_collection/DataFaces/00000.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton_1.setIcon(icon)
+        self.pushButton_1.setIconSize(QtCore.QSize(256, 256))
         self.pushButton_1.setObjectName("pushButton_1")
         self.gridLayout_2.addWidget(self.pushButton_1, 0, 0, 1, 1)
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)

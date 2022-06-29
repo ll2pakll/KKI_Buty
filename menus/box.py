@@ -17,8 +17,10 @@ class Box(Ui_MainWindow):
 
         #paths:
         self.paths_list = self.files.get_tree(path_global_collection)
+        if not os.path.isfile(path_collection):
+            pickle_save(dict(), path_collection)
         with open(path_collection, 'rb') as f:
-            self.collction = pickle.load(f)
+            self.collection = pickle.load(f)
         self.len_paths_list = len(self.paths_list)
         self.path_generator = Path_generator(self.paths_list)
 
@@ -53,17 +55,17 @@ class Box(Ui_MainWindow):
             self.meta_2['scores'] -= 1
             self.meta_1['history_comparison'].add(self.files.get_deep_file(self.path_file_2, -2))
             self.meta_2['history_comparison'].add(self.files.get_deep_file(self.path_file_1, -2))
-            self.collction[self.files.get_deep_file(self.path_file_1, -2)] = dict()
+            self.collection_add(self.path_file_1)
 
         elif btn_name == "img_2":
             self.meta_2['scores'] += 1
             self.meta_1['scores'] -= 1
             self.meta_1['history_comparison'].add(self.files.get_deep_file(self.path_file_2, -2))
             self.meta_2['history_comparison'].add(self.files.get_deep_file(self.path_file_1, -2))
-            self.collction[self.files.get_deep_file(self.path_file_2, -2)] = dict()
+            self.collection_add(self.path_file_2)
 
         self.both_metadata_save()
-        pickle_save(self.collction, path_collection)
+        pickle_save(self.collection, path_collection)
         self.actions()
 
     def get_paths_and_metas(self):
@@ -78,6 +80,13 @@ class Box(Ui_MainWindow):
     def both_metadata_save(self):
         self.meta_data.save(self.path_file_1, self.meta_1)
         self.meta_data.save(self.path_file_2, self.meta_2)
+
+    def collection_add(self, path_file):
+        if self.files.get_deep_file(path_file, -2, -1) == 'DataFaces':
+            self.collection[self.files.get_deep_file(path_file, -1)] = dict()
+        else:
+            self.collection[self.files.get_deep_file(path_file, -2)] = dict()
+
 
     def Ui_chenges(self):
         # переопределённые данные которые необходимо обновлять во время работы программы
