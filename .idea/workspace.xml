@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ec4758e8-e33a-46fa-97ac-f4bf59ce9464" name="Changes" comment="Развитие">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Collection/collection.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/Collection/collection.pkl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/menus/collection.py" beforeDir="false" afterPath="$PROJECT_DIR$/menus/collection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/menus/pyqt_files/collection/collection.py" beforeDir="false" afterPath="$PROJECT_DIR$/menus/pyqt_files/collection/collection.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,8 +160,8 @@
       <list>
         <item itemvalue="Python.collection (1)" />
         <item itemvalue="Python.Start (1)" />
-        <item itemvalue="Python.global_menu" />
         <item itemvalue="Python.box (1)" />
+        <item itemvalue="Python.global_menu" />
         <item itemvalue="Python.collection" />
       </list>
     </recent_temporary>
@@ -257,7 +259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1656473207596</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Развитие">
+      <created>1656477758041</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1656477758042</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
