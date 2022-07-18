@@ -12,5 +12,6 @@ if first_start == 'True':
     subprocess.call(('python', path_first_start_menu))
     subprocess.call(('python', path_tutorial_1))
     subprocess.call(('python', path_box, '12'))
+    pass
 
 subprocess.call(('python', path_global_menu))
