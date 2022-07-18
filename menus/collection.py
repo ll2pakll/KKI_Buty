@@ -38,20 +38,21 @@ class Collection_manual(Ui_Collection):
 
         '''функции'''
         self.Ui_chenges()
-        # self.location_on_the_screen()
+        self.location_on_the_screen()
 
     '''Это функция которая позволяет позиционировать окно при запуске'''
     def location_on_the_screen(self):
         sg = QDesktopWidget().screenGeometry()
         widget = self.Collection.geometry()
 
-        x = int(sg.width()*0.5) - int(widget.width()*0.6)
-        y = int(sg.height()*0.5) - int(widget.height()*0.1)
+        x = (sg.width() - widget.width())//2
+        y = 0
         self.Collection.move(x, y)
 
     '''инструкция при нажатии сюда посылаем источник откуда пришёл сигнал
     и информацию сигнала'''
     def on_click(self, sours, data):
+        print(self.Collection.sender().objectName())
         if sours == 'collection':
             path = self.buttons_collection[data][1]
             if path not in self.buttons_deck_path_list:
@@ -73,22 +74,24 @@ class Collection_manual(Ui_Collection):
 
     def Ui_chenges(self):
         # переопределённые данные которые необходимо обновлять во время работы программы
-        self.Collection.resize(int(QDesktopWidget().screenGeometry().width()*0.9), int(QDesktopWidget().screenGeometry().height()*0.89))
+        '''определяем скорость прокрутки коллекции колёсиком мышки'''
+        self.scrollArea.verticalScrollBar().setSingleStep(self.img_size//7)
 
-        '''создаём экземляр класса изображения'''
-        self.icon = QtGui.QIcon()
+        '''задаём размер окна ориентируясь на разрешение экрана'''
+        self.Collection.resize(int(QDesktopWidget().screenGeometry().width()*0.9), int(QDesktopWidget().screenGeometry().height()*0.89))
 
         '''задаём размер поля в котором будут отображаться карты из коллекции'''
         self.scrollAreaWidgetContents_2.setMinimumSize(QtCore.QSize(int(self.img_size*4*1.1), (len(self.collection_list)//4)
                                                                     *int(self.img_size*1.1)+self.img_size))
-        '''создаём общую политику размеров'''
+
+        '''Создание кнопок с изображениями из коллекции'''
+        '''создаём экземляр класса изображения'''
+        self.icon = QtGui.QIcon()
+        '''создаём общую политику размеров для кнопок'''
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
-
-
-        '''Создание кнопок с изображениями из коллекции'''
         for i in range(len(self.collection_list)):
             self.pushButton = QtWidgets.QPushButton(self.gridWidget)
             self.pushButton.setObjectName("pushButton"+str(i))
@@ -98,10 +101,8 @@ class Collection_manual(Ui_Collection):
             self.icon.addPixmap(QtGui.QPixmap(path).scaled(self.img_size, self.img_size),
                            QtGui.QIcon.Normal,
                            QtGui.QIcon.On)
-            # _translate = QtCore.QCoreApplication.translate
             self.pushButton.setIcon(self.icon)
             self.pushButton.setIconSize(QtCore.QSize(self.img_size, self.img_size))
-            # self.pushButton.setText(_translate("Collection", ""))
             self.gridLayout_3.addWidget(self.pushButton, i//4, i%4, 1, 1)
             self.buttons_collection[i] = (self.pushButton, path)
             '''создаём "замыкание" для того что бы лямбда правильно работала'''
