@@ -13,3 +13,7 @@ path_global_menu = os.path.abspath(os.path.join(os.path.dirname(__file__), '..',
 path_collection = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'collection', 'collection.pkl'))
 path_global_collection = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'Global_collection'))
 path_global_collection_py = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'menus', 'collection.py'))
+
+'''Индексы меню в стеке виджетов'''
+start_menu_index = 0
+box_index = 1

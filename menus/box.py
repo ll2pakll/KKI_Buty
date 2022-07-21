@@ -1,13 +1,17 @@
-from pyqt_files.box.box import *
+from menus.pyqt_files.box.box import *
 from Help_Fn.functions import *
 from Global.variables import *
 
 
 
-class Box(Ui_MainWindow):
-    def __init__(self, MainWindow):
+class Box(QtWidgets.QMainWindow, Ui_MainWindow):
+    def __init__(self, MainWindow, stack=None):
         super(Box, self).__init__()
         self.setupUi(MainWindow)
+
+        self.MainWindow = MainWindow
+
+        self.setObjectName('Box')
 
         #Static:
 
@@ -25,23 +29,20 @@ class Box(Ui_MainWindow):
         self.path_generator = Path_generator(self.paths_list)
 
         #variables:
-        if len(sys.argv) > 1:
-            self.boxes_number = int(sys.argv[1]) + 1
-        else: self.boxes_number = float('inf')
+
 
         #----------------------------------------------------------------------------
-
-        self.actions()
         self.add_function()
-
+        self.open_boxes()
+        self.actions()
     # функция которую надо запускать что бы обновить окно и данные
     def actions(self):
-        self.boxes_number -= 1
         if not self.boxes_number:
             sys.exit()
         self.get_paths_and_metas()
         self.Ui_chenges()
-        self.retranslateUi_1(MainWindow)
+        self.retranslateUi_1(self.MainWindow)
+        self.boxes_number -= 1
 
     # на данный момент это функция реагирования на нажатие
     def add_function(self):
@@ -86,6 +87,16 @@ class Box(Ui_MainWindow):
             self.collection[self.files.get_deep_file(path_file, -1)] = dict()
         else:
             self.collection[self.files.get_deep_file(path_file, -2)] = dict()
+
+    def open_boxes(self, boxes_number=None):
+        """функция запуска открывания боксов. В качестве аргумента указывается целове число, которое определяет
+        количество боксов которые требуется открыть. Если аргумент не передан, боксы открываются до тех пор, пока
+        пользователь не закроет окно"""
+        if boxes_number:
+            self.boxes_number = boxes_number
+        else:
+            self.boxes_number = float('inf')
+
 
 
     def Ui_chenges(self):
