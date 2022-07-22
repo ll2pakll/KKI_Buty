@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'global_menu.ui'
+# Form implementation generated from reading ui file 'start_menu.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -11,11 +11,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Global_menu(object):
-    def setupUi(self, Global_menu):
-        Global_menu.setObjectName("Global_menu")
-        Global_menu.resize(1200, 1000)
-        self.centralwidget = QtWidgets.QWidget(Global_menu)
+class Ui_Start_menu(object):
+    def setupUi(self, Start_menu):
+        Start_menu.setObjectName("Start_menu")
+        Start_menu.resize(1200, 1000)
+        self.centralwidget = QtWidgets.QWidget(Start_menu)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(9, 19, 1181, 971))
@@ -45,23 +45,23 @@ class Ui_Global_menu(object):
         self.Collection.setFont(font)
         self.Collection.setObjectName("Collection")
         self.horizontalLayout.addWidget(self.Collection)
-        Global_menu.setCentralWidget(self.centralwidget)
+        Start_menu.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(Global_menu)
-        QtCore.QMetaObject.connectSlotsByName(Global_menu)
+        self.retranslateUi(Start_menu)
+        QtCore.QMetaObject.connectSlotsByName(Start_menu)
 
-    def retranslateUi(self, Global_menu):
+    def retranslateUi(self, Start_menu):
         _translate = QtCore.QCoreApplication.translate
-        Global_menu.setWindowTitle(_translate("Global_menu", "MainWindow"))
-        self.Play.setText(_translate("Global_menu", "Play"))
-        self.Collection.setText(_translate("Global_menu", "Collection"))
+        Start_menu.setWindowTitle(_translate("Start_menu", "MainWindow"))
+        self.Play.setText(_translate("Start_menu", "Play"))
+        self.Collection.setText(_translate("Start_menu", "Collection"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    Global_menu = QtWidgets.QMainWindow()
-    ui = Ui_Global_menu()
-    ui.setupUi(Global_menu)
-    Global_menu.show()
+    Start_menu = QtWidgets.QMainWindow()
+    ui = Ui_Start_menu()
+    ui.setupUi(Start_menu)
+    Start_menu.show()
     sys.exit(app.exec_())

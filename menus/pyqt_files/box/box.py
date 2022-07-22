@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Buty.ui'
+# Form implementation generated from reading ui file 'box.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -11,11 +11,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1575, 850)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+class Ui_Box(object):
+    def setupUi(self, Box):
+        Box.setObjectName("Box")
+        Box.resize(1575, 850)
+        self.centralwidget = QtWidgets.QWidget(Box)
         self.centralwidget.setObjectName("centralwidget")
         self.img_1 = QtWidgets.QPushButton(self.centralwidget)
         self.img_1.setGeometry(QtCore.QRect(10, 10, 768, 768))
@@ -47,23 +47,23 @@ class Ui_MainWindow(object):
         self.lb_name_2.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.lb_name_2.setTextFormat(QtCore.Qt.PlainText)
         self.lb_name_2.setObjectName("lb_name_2")
-        MainWindow.setCentralWidget(self.centralwidget)
+        Box.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(Box)
+        QtCore.QMetaObject.connectSlotsByName(Box)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, Box):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.lb_name_1.setText(_translate("MainWindow", "TextLabel"))
-        self.lb_name_2.setText(_translate("MainWindow", "TextLabel"))
+        Box.setWindowTitle(_translate("Box", "Box"))
+        self.lb_name_1.setText(_translate("Box", "TextLabel"))
+        self.lb_name_2.setText(_translate("Box", "TextLabel"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    Box = QtWidgets.QMainWindow()
+    ui = Ui_Box()
+    ui.setupUi(Box)
+    Box.show()
     sys.exit(app.exec_())

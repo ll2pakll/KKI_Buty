@@ -4,14 +4,12 @@ from Global.variables import *
 
 
 
-class Box(QtWidgets.QMainWindow, Ui_MainWindow):
-    def __init__(self, MainWindow, stack=None):
-        super(Box, self).__init__()
+class Box_widget(Ui_Box):
+    def __init__(self, MainWindow, stack=None, stack_dict=None):
+        super(Box_widget, self).__init__()
         self.setupUi(MainWindow)
 
-        self.MainWindow = MainWindow
-
-        self.setObjectName('Box')
+        self.Box = MainWindow
 
         #Static:
 
@@ -41,7 +39,7 @@ class Box(QtWidgets.QMainWindow, Ui_MainWindow):
             sys.exit()
         self.get_paths_and_metas()
         self.Ui_chenges()
-        self.retranslateUi_1(self.MainWindow)
+        self.retranslateUi_1(self.Box)
         self.boxes_number -= 1
 
     # на данный момент это функция реагирования на нажатие
@@ -121,6 +119,6 @@ class Box(QtWidgets.QMainWindow, Ui_MainWindow):
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui = Box(MainWindow)
+    ui = Box_widget(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
