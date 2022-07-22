@@ -5,7 +5,7 @@ from Global.variables import *
 
 
 class Box_widget(Ui_Box):
-    def __init__(self, MainWindow, stack=None, stack_dict=None):
+    def __init__(self, MainWindow, stacked_widget_general=None, stack_dict_general=None):
         super(Box_widget, self).__init__()
         self.setupUi(MainWindow)
 
@@ -13,8 +13,8 @@ class Box_widget(Ui_Box):
 
         self.centralwidget.setLayout(self.Main_laiout)
 
-        self.stack = stack
-        self.stack_dict = stack_dict
+        self.stacked_widget_general = stacked_widget_general
+        self.stack_dict_general = stack_dict_general
 
         # Classes
         self.files = Files()  # класс для работы с файлами
@@ -48,7 +48,7 @@ class Box_widget(Ui_Box):
     def actions(self):
         print(self.boxes_number)
         if not self.boxes_number:
-            self.stack.setCurrentWidget(self.stack_dict["Start_menu"][1])
+            self.stacked_widget_general.setCurrentWidget(self.stack_dict_general["Start_menu"][1])
         self.get_paths_and_metas()
         self.Ui_chenges()
         self.retranslateUi_1(self.Box)

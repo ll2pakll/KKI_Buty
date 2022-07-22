@@ -1,19 +1,19 @@
-from pyqt_files.collection.collection import *
+from menus.pyqt_files.collection.collection import *
 from Help_Fn.functions import *
 from Global.variables import *
 from PyQt5.QtWidgets import QDesktopWidget
 
 
-class Collection_manual(Ui_Collection):
-    def __init__(self, Collection):
-        super(Collection_manual, self).__init__()
-        self.setupUi(Collection)
+class Collection_widget(Ui_Collection):
+    def __init__(self, MainWindow, stacked_widget_general=None, stack_dict_general=None):
+        super(Collection_widget, self).__init__()
+        self.setupUi(MainWindow)
+
+        '''делаем основное окно общедоступным для всего класса'''
+        self.Collection = MainWindow
 
         '''создаём экземлпяры служебных классов'''
         self.Files = Files()
-
-        '''делаем основное окно общедоступным для всего класса'''
-        self.Collection = Collection
 
         '''задаём отображаемый размер изображений'''
         self.img_size = 512
@@ -97,7 +97,10 @@ class Collection_manual(Ui_Collection):
             self.pushButton.setObjectName("pushButton"+str(i))
             self.pushButton.setSizePolicy(sizePolicy)
             self.pushButton.setMinimumSize(QtCore.QSize(self.img_size, self.img_size))
-            path = "../../Global_collection/DataFaces/"+self.collection_list[i]
+            if __name__ == "__main__":
+                path = "../../Global_collection/DataFaces/"+self.collection_list[i]
+            else:
+                path = "../Global_collection/DataFaces/" + self.collection_list[i]
             self.icon.addPixmap(QtGui.QPixmap(path).scaled(self.img_size, self.img_size),
                            QtGui.QIcon.Normal,
                            QtGui.QIcon.On)
@@ -126,6 +129,6 @@ if __name__ == "__main__":
     os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__))))
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui = Collection_manual(MainWindow)
+    ui = Collection_widget(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())

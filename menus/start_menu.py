@@ -5,12 +5,13 @@ from Help_Fn.functions import *
 from menus.box import *
 
 class Start_menu_widget(Ui_Start_menu):
-    def __init__(self, MainWindow, stack=None, stack_dict=None):
+    def __init__(self, MainWindow, stacked_widget_general=None, stack_dict_general=None):
         super(Start_menu_widget, self).__init__()
         self.setupUi(MainWindow)
 
         self.Start_menu = MainWindow
-        self.stack = stack
+        self.stacked_widget_general = stacked_widget_general
+        self.stack_dict_general = stack_dict_general
         self.centralwidget.setLayout(self.horizontalLayout)
 
         self.add_connects()
@@ -22,7 +23,7 @@ class Start_menu_widget(Ui_Start_menu):
 
     # инструкции при нажатии
     def collection_btn_clicked(self):
-        self.stack.setCurrentIndex(box_index)
+        self.stacked_widget_general.setCurrentWidget(self.stack_dict_general["Collection"][1])
 
     def on_click(self, btn_name):
         if btn_name == "Play":

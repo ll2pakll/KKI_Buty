@@ -1,52 +1,56 @@
-from PyQt5 import QtWidgets
+import sys
 import Global.variables as gv
+from menus.pyqt_files.general_window.general_window import *
 from menus.start_menu import Start_menu_widget
 from menus.box import Box_widget
+from menus.collection import Collection_widget
 from Help_Fn.functions import *
 from PyQt5.QtWidgets import QDesktopWidget
 
-class Stack_Widgets(QtWidgets.QMainWindow):
-    def __init__(self):
-        super(Stack_Widgets, self).__init__()
-        self.setWindowTitle("Beauty_collection")
+class General_window_widget(Ui_general_window):
+    def __init__(self,  MainWindow):
+        super(General_window_widget, self).__init__()
+        self.setupUi(MainWindow)
 
-        # создаём и устанавливаем центральный виджет
-        self.centralwidget = QtWidgets.QWidget()
-        self.setCentralWidget(self.centralwidget)
+        self.General_window = MainWindow
 
-        # создаём стек виджетов
-        self.stack = QtWidgets.QStackedWidget()
+        self.General_window.setWindowTitle("Beauty collection")
 
-        # создаём главный лейаут, наполняем его
-        # и помещаем на главный виджет
-        self.Main_Layout = QtWidgets.QHBoxLayout()
-        self.Main_Layout.addWidget(self.stack)
-        self.centralwidget.setLayout(self.Main_Layout)
+        # создаём словарь с добавленными виджетами
+        self.stack_dict_general = {}
 
-        # создаём словарь с добавленными виджетами (добавляется не сам
-        # виджет, а окно которое он обработал
-        self.stack_dict = {}
-
-        # добовляем виджеты в стек, от порядка добавления зависит индекс
-        # виджета в стеке, эти индексы привязаны к переменным в "Global.variables.py"
+        # добовляем виджеты в стек
         self.add_widget(Start_menu_widget)
         self.add_widget(Box_widget)
+        self.add_widget(Collection_widget)
 
         self.first_run()
 
+        self.add_connects()
+
+
+    def add_connects(self):
+        '''связь сигналов'''
+        self.exit_qpb.clicked.connect(self.slt_exit)
+        self.start_menu_qpb.clicked.connect(self.slt_set_start_menu)
+
+
+
     def add_widget(self, class_widget):
-        '''функция принимает название класса виджета и добавляет окно этого виджета
-        в стек вджетов, а так же добавляет ссылку на это окно виджета в словарь виджетов,
-        с ключём по названию виджета'''
+        '''функция принимает класс виджета добавляет окно этого виджета
+        в стек вджетов, а так же добавляет ссылки на это окно виджета и экземпляр виджета
+        в словарь виджетов, с ключём по названию виджета, где [0] - экземпляр виджета,
+        [1] - окно виджета'''
 
         # создаём окно которое будет пропущено через преобразования в виджете
         window = QtWidgets.QMainWindow()
-        # создаём класс виджета и пропускаем через него окно
-        widget = class_widget(window, self.stack, self.stack_dict)
+        # создаём экземпляр класса виджета и пропускаем через него окно,
+        # а так же посылаем в него глобальный стак окон и словарь виджетов
+        widget = class_widget(window, self.stacked_widget_general, self.stack_dict_general)
         # добавляем в словарь ссылку на виджет и окно
-        self.stack_dict[window.objectName()] = [widget, window]
+        self.stack_dict_general[window.objectName()] = [widget, window]
         # добовляем окнов стек виджетов
-        self.stack.addWidget(self.stack_dict[window.objectName()][1])
+        self.stacked_widget_general.addWidget(self.stack_dict_general[window.objectName()][1])
 
     def first_run(self):
         """Проверяем запускает ли пользователь игру впервые.
@@ -69,18 +73,23 @@ class Stack_Widgets(QtWidgets.QMainWindow):
             with open(os.path.abspath(os.path.join(os.path.dirname(__file__), './Global', 'first_Start_menu.py')),
                       'w') as file:
                 file.write('False')
-            QtWidgets.QMessageBox.information(self, 'Приветсвие', 'Добро пожаловать в Beauty collection!')
-            QtWidgets.QMessageBox.information(self, 'Первый запуск', first_start_massage)
-            QtWidgets.QMessageBox.information(self, 'Первая инструкция', first_instruction)
-            self.stack_dict["Box"][0].open_boxes(2)
-            self.stack.setCurrentWidget(self.stack_dict["Box"][1])
+            QtWidgets.QMessageBox.information(self.General_window, 'Приветсвие', 'Добро пожаловать в Beauty collection!')
+            QtWidgets.QMessageBox.information(self.General_window, 'Первый запуск', first_start_massage)
+            QtWidgets.QMessageBox.information(self.General_window, 'Первая инструкция', first_instruction)
+            self.stack_dict_general["Box"][0].open_boxes(2)
+            self.stacked_widget_general.setCurrentWidget(self.stack_dict_general["Box"][1])
 
+    #Слоты
+    def slt_exit(self):
+        sys.exit()
 
+    def slt_set_start_menu(self):
+        self.stacked_widget_general.setCurrentWidget(self.stack_dict_general["Start_menu"][1])
 
 
 if __name__ == "__main__":
-    import sys
     app = QtWidgets.QApplication(sys.argv)
-    stack_Widgets = Stack_Widgets()
-    stack_Widgets.showFullScreen()
+    MainWindow = QtWidgets.QMainWindow()
+    ui = General_window_widget(MainWindow)
+    MainWindow.showFullScreen()
     sys.exit(app.exec_())
