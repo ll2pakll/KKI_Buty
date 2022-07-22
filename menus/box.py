@@ -11,11 +11,20 @@ class Box_widget(Ui_Box):
 
         self.Box = MainWindow
 
-        #Static:
+        self.centralwidget.setLayout(self.Main_laiout)
+
+        self.stack = stack
+        self.stack_dict = stack_dict
 
         # Classes
         self.files = Files()  # класс для работы с файлами
         self.meta_data = Meta_data()
+
+        # получаем разрешение экрана и создаём виджет для определения
+        # максимального размера изображения в кнопке
+        self.resolution = QtWidgets.QDesktopWidget().availableGeometry()
+        self.image_size = int((self.resolution.width()//2)*0.95)
+        self.image_size_qt = QtCore.QSize(self.image_size, self.image_size)
 
         #paths:
         self.paths_list = self.files.get_tree(path_global_collection)
@@ -33,10 +42,13 @@ class Box_widget(Ui_Box):
         self.add_function()
         self.open_boxes()
         self.actions()
+
+
     # функция которую надо запускать что бы обновить окно и данные
     def actions(self):
+        print(self.boxes_number)
         if not self.boxes_number:
-            sys.exit()
+            self.stack.setCurrentWidget(self.stack_dict["Start_menu"][1])
         self.get_paths_and_metas()
         self.Ui_chenges()
         self.retranslateUi_1(self.Box)
@@ -91,7 +103,7 @@ class Box_widget(Ui_Box):
         количество боксов которые требуется открыть. Если аргумент не передан, боксы открываются до тех пор, пока
         пользователь не закроет окно"""
         if boxes_number:
-            self.boxes_number = boxes_number
+            self.boxes_number = boxes_number - 1
         else:
             self.boxes_number = float('inf')
 
@@ -100,14 +112,16 @@ class Box_widget(Ui_Box):
     def Ui_chenges(self):
         # переопределённые данные которые необходимо обновлять во время работы программы
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(os.path.join(self.path_file_1)).scaled(768, 768), QtGui.QIcon.Normal,
+        icon.addPixmap(QtGui.QPixmap(os.path.join(self.path_file_1)).scaled(self.image_size_qt), QtGui.QIcon.Normal,
                        QtGui.QIcon.On)
         self.img_1.setIcon(icon)
+        self.img_1.setIconSize(QtCore.QSize(self.image_size_qt))
 
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(os.path.join(self.path_file_2)).scaled(768, 768), QtGui.QIcon.Normal,
+        icon1.addPixmap(QtGui.QPixmap(os.path.join(self.path_file_2)).scaled(self.image_size_qt), QtGui.QIcon.Normal,
                         QtGui.QIcon.On)
         self.img_2.setIcon(icon1)
+        self.img_2.setIconSize(QtCore.QSize(self.image_size_qt))
 
     def retranslateUi_1(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -120,5 +134,5 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Box_widget(MainWindow)
-    MainWindow.show()
+    MainWindow.showFullScreen()
     sys.exit(app.exec_())

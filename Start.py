@@ -53,7 +53,7 @@ class Stack_Widgets(QtWidgets.QMainWindow):
             Если так то он увидит первоночальные инструкции"""
         with open(gv.path_first_start_chek, 'r') as file:
             first_start = file.read()
-        if first_start == 'True':
+        if first_start == 'False':
             first_start_massage = """В этой игре вы составляете свою коллекцию из фотографий случайных людей. \n
 Из этой коллекции вы можете составлять игровые колоды, с которыми вы будете сражаться против других игроков. \n
 Чем красивее ваши карты, тем больше у вас шансов на победу, потому что сила вашей карты будет зависеть от того, понравится ли она другим пользователям или нет. \n
@@ -72,6 +72,7 @@ class Stack_Widgets(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.information(self, 'Приветсвие', 'Добро пожаловать в Beauty collection!')
             QtWidgets.QMessageBox.information(self, 'Первый запуск', first_start_massage)
             QtWidgets.QMessageBox.information(self, 'Первая инструкция', first_instruction)
+            self.stack_dict["Box"][0].open_boxes(2)
             self.stack.setCurrentWidget(self.stack_dict["Box"][1])
 
 
