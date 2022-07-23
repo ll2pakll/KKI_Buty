@@ -39,17 +39,19 @@ class Box_widget(QtWidgets.QMainWindow, Ui_Box):
             self.collection = pickle.load(f)
         self.len_paths_list = len(self.paths_list)
 
-        """получаем первую пару фотографий для сравнения"""
+        """инициализируем экземпляр класса генерирующего пути
+        для сравниваемых фотографий"""
         self.path_generator = Path_generator(self.paths_list)
 
         #----------------------------------------------------------------------------
         self.add_connects()
 
-
-
-    # функция которую надо запускать что бы обновить окно и данные
     def actions(self):
+        """обновляет окно и данные"""
         if __name__ != "__main__":
+            """если кличество боксов у пользователя равно нулю
+            то возможность выбора прекращается, работает только, если программа
+            запускалась из другой программы"""
             if not gv.box_quantity:
                 self.img_1.setDisabled(True)
                 self.img_2.setDisabled(True)
@@ -161,5 +163,6 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Box_widget(MainWindow)
+    ui.chenge_box_quantity()
     MainWindow.showFullScreen()
     sys.exit(app.exec_())

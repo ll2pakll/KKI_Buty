@@ -58,7 +58,7 @@ class General_window_widget(Ui_general_window):
         """Проверяем запускает ли пользователь игру впервые.
             Если так то он увидит первоночальные инструкции"""
 
-        if not gv.first_start:
+        if gv.first_start:
             first_start_massage = """В этой игре вы составляете свою коллекцию из фотографий случайных людей. \n
 Из этой коллекции вы можете составлять игровые колоды, с которыми вы будете сражаться против других игроков. \n
 Чем красивее ваши карты, тем больше у вас шансов на победу, потому что сила вашей карты будет зависеть от того, понравится ли она другим пользователям или нет. \n
@@ -80,7 +80,7 @@ class General_window_widget(Ui_general_window):
             QtWidgets.QMessageBox.information(self.General_window, 'Приветсвие', 'Добро пожаловать в Beauty collection!')
             QtWidgets.QMessageBox.information(self.General_window, 'Первый запуск', first_start_massage)
             QtWidgets.QMessageBox.information(self.General_window, 'Первая инструкция', first_instruction)
-            self.stack_dict_general["Box"][0].add_boxes(2)
+            self.stack_dict_general["Box"][0].add_boxes(12)
             self.stacked_widget_general.setCurrentWidget(self.stack_dict_general["Box"][1])
         else:
             self.stacked_widget_general.setCurrentWidget(self.stack_dict_general["Start_menu"][1])

@@ -1,6 +1,6 @@
 from menus.pyqt_files.collection.collection import *
 from Help_Fn.functions import *
-from Global.variables import *
+import Global.variables as gv
 from PyQt5.QtWidgets import QDesktopWidget
 
 
@@ -18,8 +18,12 @@ class Collection_widget(Ui_Collection):
         '''задаём отображаемый размер изображений'''
         self.img_size = 512
 
+        """если нет файла с коллекцией игрока, он создаётся"""
+        if not os.path.isfile(gv.path_collection):
+            pickle_save(dict(), gv.path_collection)
+
         '''открываем коллекцию и сортируем её по имени'''
-        with open(path_collection, 'rb') as f:
+        with open(gv.path_collection, 'rb') as f:
             self.collection = pickle.load(f)
         self.collection_list = list()
         for k, i in self.collection.items():
@@ -36,8 +40,21 @@ class Collection_widget(Ui_Collection):
         кнопок колоды'''
         self.buttons_deck_path_list = [None]*6
 
+        '''определяем скорость прокрутки коллекции колёсиком мышки'''
+        self.scrollArea.verticalScrollBar().setSingleStep(self.img_size // 7)
+
+        '''задаём размер окна ориентируясь на разрешение экрана'''
+        self.Collection.resize(int(QDesktopWidget().screenGeometry().width() * 0.9),
+                               int(QDesktopWidget().screenGeometry().height() * 0.89))
+
+        '''задаём размер поля в котором будут отображаться карты из коллекции'''
+        self.scrollAreaWidgetContents_2.setMinimumSize(
+            QtCore.QSize(int(self.img_size * 4 * 1.1), (len(self.collection_list) // 4)
+                         * int(self.img_size * 1.1) + self.img_size))
+
         '''функции'''
-        self.Ui_chenges()
+        self.pbtn_collection_creater()
+        self.pbtn_deck_creater()
         self.location_on_the_screen()
 
     '''Это функция которая позволяет позиционировать окно при запуске'''
@@ -71,59 +88,56 @@ class Collection_widget(Ui_Collection):
             self.buttons_deck[data].setIcon(QtGui.QIcon())
             self.buttons_deck_path_list[data] = None
 
-
-    def Ui_chenges(self):
-        # переопределённые данные которые необходимо обновлять во время работы программы
-        '''определяем скорость прокрутки коллекции колёсиком мышки'''
-        self.scrollArea.verticalScrollBar().setSingleStep(self.img_size//7)
-
-        '''задаём размер окна ориентируясь на разрешение экрана'''
-        self.Collection.resize(int(QDesktopWidget().screenGeometry().width()*0.9), int(QDesktopWidget().screenGeometry().height()*0.89))
-
-        '''задаём размер поля в котором будут отображаться карты из коллекции'''
-        self.scrollAreaWidgetContents_2.setMinimumSize(QtCore.QSize(int(self.img_size*4*1.1), (len(self.collection_list)//4)
-                                                                    *int(self.img_size*1.1)+self.img_size))
-
+    def pbtn_collection_creater(self):
         '''Создание кнопок с изображениями из коллекции'''
         '''создаём экземляр класса изображения'''
         self.icon = QtGui.QIcon()
         '''создаём общую политику размеров для кнопок'''
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
+        self.sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        self.sizePolicy.setHorizontalStretch(0)
+        self.sizePolicy.setVerticalStretch(0)
+        self.sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
         for i in range(len(self.collection_list)):
             self.pushButton = QtWidgets.QPushButton(self.gridWidget)
-            self.pushButton.setObjectName("pushButton"+str(i))
-            self.pushButton.setSizePolicy(sizePolicy)
+            self.pushButton.setObjectName("pushButton" + str(i))
+            self.pushButton.setSizePolicy(self.sizePolicy)
             self.pushButton.setMinimumSize(QtCore.QSize(self.img_size, self.img_size))
             if __name__ == "__main__":
-                path = "../../Global_collection/DataFaces/"+self.collection_list[i]
+                path = "../../Global_collection/DataFaces/" + self.collection_list[i]
             else:
                 path = "../Global_collection/DataFaces/" + self.collection_list[i]
             self.icon.addPixmap(QtGui.QPixmap(path).scaled(self.img_size, self.img_size),
-                           QtGui.QIcon.Normal,
-                           QtGui.QIcon.On)
+                                QtGui.QIcon.Normal,
+                                QtGui.QIcon.On)
             self.pushButton.setIcon(self.icon)
             self.pushButton.setIconSize(QtCore.QSize(self.img_size, self.img_size))
-            self.gridLayout_3.addWidget(self.pushButton, i//4, i%4, 1, 1)
+            self.gridLayout_3.addWidget(self.pushButton, i // 4, i % 4, 1, 1)
             self.buttons_collection[i] = (self.pushButton, path)
+
             '''создаём "замыкание" для того что бы лямбда правильно работала'''
+
             def on_click_lambda(x, y):
                 return lambda: self.on_click(x, y)
+
             '''создаём привязку нажатия к функции нажатия, посылаем индекс из списка
             кнопок коллекции'''
             self.buttons_collection[i][0].clicked.connect(on_click_lambda('collection', i))
 
+    def pbtn_deck_creater(self):
+        '''создаём "замыкание" для того что бы лямбда правильно работала'''
+        def on_click_lambda(x, y):
+            return lambda: self.on_click(x, y)
+
         '''Создание иконок карт выбранных для игры'''
         for i in range(6):
             self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-            self.pushButton.setObjectName("pushButton_deck"+str(i))
-            self.pushButton.setSizePolicy(sizePolicy)
-            self.pushButton.setMinimumSize(QtCore.QSize(self.img_size//2, self.img_size//2))
+            self.pushButton.setObjectName("pushButton_deck" + str(i))
+            self.pushButton.setSizePolicy(self.sizePolicy)
+            self.pushButton.setMinimumSize(QtCore.QSize(self.img_size // 2, self.img_size // 2))
             self.gridLayout_4.addWidget(self.pushButton, i, 0, 1, 1)
             self.buttons_deck[i] = self.pushButton
             self.buttons_deck[i].clicked.connect(on_click_lambda('deck', i))
+
 
 if __name__ == "__main__":
     os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__))))
