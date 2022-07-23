@@ -52,12 +52,13 @@ class General_window_widget(Ui_general_window):
         # добовляем окнов стек виджетов
         self.stacked_widget_general.addWidget(self.stack_dict_general[window.objectName()][1])
 
+
+
     def first_run(self):
         """Проверяем запускает ли пользователь игру впервые.
             Если так то он увидит первоночальные инструкции"""
-        with open(gv.path_first_start_chek, 'r') as file:
-            first_start = file.read()
-        if first_start == 'False':
+
+        if not gv.first_start:
             first_start_massage = """В этой игре вы составляете свою коллекцию из фотографий случайных людей. \n
 Из этой коллекции вы можете составлять игровые колоды, с которыми вы будете сражаться против других игроков. \n
 Чем красивее ваши карты, тем больше у вас шансов на победу, потому что сила вашей карты будет зависеть от того, понравится ли она другим пользователям или нет. \n
@@ -70,14 +71,19 @@ class General_window_widget(Ui_general_window):
 Чем красивее ваша коллекция, тем больше у вас шансов на победу в играх. \n
 Вы всегда сможете дополнить свою коллекцию, заменить или удалить непонравившиеся карты, но ваша коллекция не может быть меньше 12-ти карт, помните это когда будете удалять или менять карты.
 """
-            with open(os.path.abspath(os.path.join(os.path.dirname(__file__), './Global', 'first_Start_menu.py')),
-                      'w') as file:
-                file.write('False')
+            with open(gv.path_global_variables, 'r', encoding='utf-8') as file:
+                variables = file.read().replace('first_start = True', 'first_start = False')
+
+            with open(gv.path_global_variables, 'w', encoding='utf-8') as file:
+                file.write(variables)
+
             QtWidgets.QMessageBox.information(self.General_window, 'Приветсвие', 'Добро пожаловать в Beauty collection!')
             QtWidgets.QMessageBox.information(self.General_window, 'Первый запуск', first_start_massage)
             QtWidgets.QMessageBox.information(self.General_window, 'Первая инструкция', first_instruction)
-            self.stack_dict_general["Box"][0].open_boxes(2)
+            self.stack_dict_general["Box"][0].add_boxes(2)
             self.stacked_widget_general.setCurrentWidget(self.stack_dict_general["Box"][1])
+        else:
+            self.stacked_widget_general.setCurrentWidget(self.stack_dict_general["Start_menu"][1])
 
     #Слоты
     def slt_exit(self):

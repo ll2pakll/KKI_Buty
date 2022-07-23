@@ -29,6 +29,7 @@ class Ui_general_window(object):
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem, 1, 1, 1, 1)
         self.stacked_widget_general = QtWidgets.QStackedWidget(self.centralwidget)
+        self.stacked_widget_general.setLineWidth(1)
         self.stacked_widget_general.setObjectName("stacked_widget_general")
         self.stacked_widget_global_QVlayout = QtWidgets.QWidget()
         self.stacked_widget_global_QVlayout.setObjectName("stacked_widget_global_QVlayout")
@@ -36,6 +37,9 @@ class Ui_general_window(object):
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.stacked_widget_general.addWidget(self.stacked_widget_global_QVlayout)
         self.gridLayout.addWidget(self.stacked_widget_general, 0, 0, 1, 3)
+        self.start_menu_qpb.raise_()
+        self.exit_qpb.raise_()
+        self.stacked_widget_general.raise_()
         general_window.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(general_window)

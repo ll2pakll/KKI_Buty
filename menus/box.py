@@ -1,10 +1,10 @@
 from menus.pyqt_files.box.box import *
 from Help_Fn.functions import *
-from Global.variables import *
+import Global.variables as gv
 
 
 
-class Box_widget(Ui_Box):
+class Box_widget(QtWidgets.QMainWindow, Ui_Box):
     def __init__(self, MainWindow, stacked_widget_general=None, stack_dict_general=None):
         super(Box_widget, self).__init__()
         self.setupUi(MainWindow)
@@ -27,57 +27,74 @@ class Box_widget(Ui_Box):
         self.image_size_qt = QtCore.QSize(self.image_size, self.image_size)
 
         #paths:
-        self.paths_list = self.files.get_tree(path_global_collection)
-        if not os.path.isfile(path_collection):
-            pickle_save(dict(), path_collection)
-        with open(path_collection, 'rb') as f:
+        """создаём список файлов в глобальной коллеции"""
+        self.paths_list = self.files.get_tree(gv.path_global_collection)
+
+        """если нет файла с коллекцией игрока, он создаётся"""
+        if not os.path.isfile(gv.path_collection):
+            pickle_save(dict(), gv.path_collection)
+
+        """открываем файл с коллекцией игрока"""
+        with open(gv.path_collection, 'rb') as f:
             self.collection = pickle.load(f)
         self.len_paths_list = len(self.paths_list)
+
+        """получаем первую пару фотографий для сравнения"""
         self.path_generator = Path_generator(self.paths_list)
 
-        #variables:
-
-
         #----------------------------------------------------------------------------
-        self.add_function()
-        self.open_boxes()
-        self.actions()
+        self.add_connects()
+
 
 
     # функция которую надо запускать что бы обновить окно и данные
     def actions(self):
-        print(self.boxes_number)
-        if not self.boxes_number:
-            self.stacked_widget_general.setCurrentWidget(self.stack_dict_general["Start_menu"][1])
+        if __name__ != "__main__":
+            if not gv.box_quantity:
+                self.img_1.setDisabled(True)
+                self.img_2.setDisabled(True)
+            else:
+                self.img_1.setEnabled(True)
+                self.img_2.setEnabled(True)
+
         self.get_paths_and_metas()
         self.Ui_chenges()
         self.retranslateUi_1(self.Box)
-        self.boxes_number -= 1
 
-    # на данный момент это функция реагирования на нажатие
-    def add_function(self):
-        self.img_1.clicked.connect(lambda: self.on_click(self.img_1.objectName()))
-        self.img_2.clicked.connect(lambda: self.on_click(self.img_2.objectName()))
+    def add_connects(self):
+        '''связь сигналов'''
+        self.img_1.clicked.connect(self.on_click)
+        self.img_2.clicked.connect(self.on_click)
 
     # инструкции при нажатии
-    def on_click(self, btn_name):
-        if btn_name == "img_1":
+    def on_click(self):
+        """В коллекцию файлы добавляются только когда бокс запускается из других виджетов
+        это сделано для того что бы можно было тестировать бокс запуская его напрямую, и не
+        менять состояние коллецкии"""
+        sender = self.sender().objectName()
+
+        if sender == "img_1":
             self.meta_1['scores'] += 1
             self.meta_2['scores'] -= 1
             self.meta_1['history_comparison'].add(self.files.get_deep_file(self.path_file_2, -2))
             self.meta_2['history_comparison'].add(self.files.get_deep_file(self.path_file_1, -2))
-            self.collection_add(self.path_file_1)
+            if __name__ != "__main__":
+                self.collection_add(self.path_file_1)
 
-        elif btn_name == "img_2":
+        elif sender == "img_2":
             self.meta_2['scores'] += 1
             self.meta_1['scores'] -= 1
             self.meta_1['history_comparison'].add(self.files.get_deep_file(self.path_file_2, -2))
             self.meta_2['history_comparison'].add(self.files.get_deep_file(self.path_file_1, -2))
-            self.collection_add(self.path_file_2)
+            if __name__ != "__main__":
+                self.collection_add(self.path_file_2)
 
         self.both_metadata_save()
-        pickle_save(self.collection, path_collection)
-        self.actions()
+        if __name__ != "__main__":
+            pickle_save(self.collection, gv.path_collection)
+            self.chenge_box_quantity(-1)
+        else:
+            self.actions()
 
     def get_paths_and_metas(self):
         self.path_file_1, \
@@ -98,14 +115,24 @@ class Box_widget(Ui_Box):
         else:
             self.collection[self.files.get_deep_file(path_file, -2)] = dict()
 
-    def open_boxes(self, boxes_number=None):
-        """функция запуска открывания боксов. В качестве аргумента указывается целове число, которое определяет
-        количество боксов которые требуется открыть. Если аргумент не передан, боксы открываются до тех пор, пока
-        пользователь не закроет окно"""
-        if boxes_number:
-            self.boxes_number = boxes_number - 1
-        else:
-            self.boxes_number = float('inf')
+    def add_boxes(self, boxes_number=0):
+        """функция добавления боксов. В качестве аргумента указывается целое число,
+        которое определяет сколько боксов будет добавлено."""
+        self.chenge_box_quantity(boxes_number)
+
+    def chenge_box_quantity(self, chenger=0):
+        """меняет количество боксов на чилсо кототорое переданов качестве аргумента.
+        *число может быть отрицательным"""
+        if chenger:
+            with open(gv.path_global_variables, 'r', encoding='utf-8') as file:
+                variables = file.read().replace(f'box_quantity = {gv.box_quantity}',
+                                                f'box_quantity = {gv.box_quantity + chenger}')
+                gv.box_quantity += chenger
+
+            with open(gv.path_global_variables, 'w', encoding='utf-8') as file:
+                file.write(variables)
+
+        self.actions()
 
 
 
