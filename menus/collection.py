@@ -49,7 +49,7 @@ class Collection_widget(Ui_Collection):
         self.buttons_deck = [None] * self.deck_len
 
         '''список выбранных карт, сюда помещаются пути к изображениям для 
-        кнопок колоды '''
+        кнопок колоды'''
         self.buttons_deck_path_list_empty = [None]*self.deck_len
         self.buttons_deck_path_list = self.buttons_deck_path_list_empty.copy()
 
