@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec4758e8-e33a-46fa-97ac-f4bf59ce9464" name="Changes" comment="Создал систему хранения колод, добавил функцию сохранения колод в  collection">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/decks.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/cards/decks.pkl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/menus/collection.py" beforeDir="false" afterPath="$PROJECT_DIR$/menus/collection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/menus/pyqt_files/collection/collection.py" beforeDir="false" afterPath="$PROJECT_DIR$/menus/pyqt_files/collection/collection.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,8 +165,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.Start" />
-        <item itemvalue="Python.collection" />
         <item itemvalue="Python.collection (1)" />
+        <item itemvalue="Python.collection" />
         <item itemvalue="Python.box (1)" />
         <item itemvalue="Python.Test" />
       </list>
@@ -360,7 +363,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658637281143</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Создал систему хранения колод, добавил функцию сохранения колод в  collection">
+      <created>1658637722685</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1658637722685</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

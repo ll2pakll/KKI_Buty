@@ -167,24 +167,46 @@ class Collection_widget(Ui_Collection):
             self.buttons_collection[i][0].clicked.connect(self.on_click_lambda('collection', i))
 
     def pbtn_deck_creater(self):
-        '''Создание иконок карт выбранных для игры'''
+        '''Создание области для работы с колодами'''
+
+        """На этом виджете будет размещаться создание новой колоды"""
+        self.new_deck_widget = QtWidgets.QWidget()
+        self.QVB_new_deck_widgetleyout = QtWidgets.QVBoxLayout()
+        self.new_deck_widget.setLayout(self.QVB_new_deck_widgetleyout)
+
+        """Помещаем поле для ввода названия колоды на своё место"""
+        self.QVB_new_deck_widgetleyout.addWidget(self.deck_name)
+
+
+        """Цикл размещения нопок с картами в области создания колоды"""
         for i in range(self.deck_len):
             self.pushButton = QtWidgets.QPushButton(self.centralwidget)
             self.pushButton.setObjectName("pushButton_deck" + str(i))
             self.pushButton.setSizePolicy(self.sizePolicy)
             self.pushButton.setMinimumSize(QtCore.QSize(self.img_size // 2, self.img_size // 2))
-            self.QVB_deck_layout.addWidget(self.pushButton)
+            self.QVB_new_deck_widgetleyout.addWidget(self.pushButton)
             self.buttons_deck[i] = self.pushButton
             self.buttons_deck[i].clicked.connect(self.on_click_lambda('deck', i))
 
-        """создаём в этом же лейауте кнопку для сохранения"""
+        """создаём в этом же лейауте горизонтальный лейаут и добавляем на него
+        кнопки save и clear"""
+        self.QHB_save_clear_btn_layout = QtWidgets.QHBoxLayout()
         self.save_deck = QtWidgets.QPushButton()
         self.save_deck.setObjectName("save_deck")
         self.save_deck.setText('Save')
-        self.QVB_deck_layout.addWidget(self.save_deck)
+        self.clear_deck = QtWidgets.QPushButton(self.centralwidget)
+        self.clear_deck.setObjectName("clear_deck")
+        self.clear_deck.setText("Clear")
+        self.QVB_deck_layout.addWidget(self.clear_deck)
+        self.QHB_save_clear_btn_layout.addWidget(self.save_deck)
+        self.QHB_save_clear_btn_layout.addWidget(self.clear_deck)
+        self.QVB_new_deck_widgetleyout.addLayout(self.QHB_save_clear_btn_layout)
 
         """добавляем в коно ввода имени колоды подсказку для пользователя"""
         self.deck_name.setPlaceholderText('Введи имя колоды')
+
+        self.tab_deck_Widget.removeTab(0)
+        self.tab_deck_Widget.insertTab(0, self.new_deck_widget, 'Создание колоды')
 
     def on_click_lambda(self, x, y):
         '''создаём "замыкание" для того что бы лямбда правильно работала'''
