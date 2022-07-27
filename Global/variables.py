@@ -17,4 +17,4 @@ path_global_collection = os.path.abspath(os.path.join(os.path.dirname(__file__),
 first_start = False
 
 '''Ресурсы'''
-box_quantity = 0
+box_quantity = 96

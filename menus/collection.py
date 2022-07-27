@@ -13,6 +13,9 @@ class Collection_widget(Ui_Collection):
         '''делаем основное окно общедоступным для всего класса'''
         self.Collection = MainWindow
 
+        """меняем текущую дирректорию на корневой котолог"""
+        os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
         '''создаём экземлпяры служебных классов'''
         self.Files = Files()
 
@@ -31,22 +34,28 @@ class Collection_widget(Ui_Collection):
             self.collection_list.append(k)
         self.collection_list = sorted(self.collection_list)
 
+        '''список кнопок в коллеции'''
+        self.buttons_collection = [None] * len(self.collection_list)
+
         """если нет файла с колодами игрока, он создаётся"""
         if not os.path.isfile(gv.path_decks):
             pickle_save(dict(), gv.path_decks)
 
-        '''список кнопок в коллеции'''
-        self.buttons_collection = [None] * len(self.collection_list)
-
         """открываем файл с колодами"""
         with open(gv.path_decks, 'rb') as f:
             self.decks = pickle.load(f)
+
+        """создаём переменную с количеством сохранённых колод"""
+        self.decks_len = len(self.decks)
 
         """определяем размер колоды"""
         self.deck_len = 6
 
         '''список кнопок в колоде'''
         self.buttons_deck = [None] * self.deck_len
+
+        """список конопок сохранённых колод"""
+        self.buttons_decks = {}
 
         '''список выбранных карт, сюда помещаются пути к изображениям для 
         кнопок колоды'''
@@ -107,6 +116,19 @@ class Collection_widget(Ui_Collection):
             self.buttons_deck[data].setIcon(QtGui.QIcon())
             self.buttons_deck_path_list[data] = None
 
+        elif sours == 'decks':
+            for i in range(len(self.decks[data])):
+                self.buttons_deck_path_list[i] = self.decks[data][i]
+                self.icon.addPixmap(QtGui.QPixmap(self.decks[data][i]).scaled(self.img_size // 2, self.img_size // 2),
+                                    QtGui.QIcon.Normal,
+                                    QtGui.QIcon.On)
+                self.buttons_deck[i].setIcon(self.icon)
+                self.buttons_deck[i].setIconSize(QtCore.QSize(self.img_size//2, self.img_size//2))
+
+            self.deck_name.setText(data)
+
+            self.tab_deck_Widget.setCurrentIndex(0)
+
         elif self.Collection.sender().objectName() == "clear_deck":
             self.buttons_deck_path_list = [None] * 6
             for i in self.buttons_deck:
@@ -144,16 +166,12 @@ class Collection_widget(Ui_Collection):
         self.sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.sizePolicy.setHorizontalStretch(0)
         self.sizePolicy.setVerticalStretch(0)
-        self.sizePolicy.setHeightForWidth(self.pushButton_1.sizePolicy().hasHeightForWidth())
         for i in range(len(self.collection_list)):
             self.pushButton = QtWidgets.QPushButton(self.gridWidget)
             self.pushButton.setObjectName("pushButton" + str(i))
             self.pushButton.setSizePolicy(self.sizePolicy)
             self.pushButton.setMinimumSize(QtCore.QSize(self.img_size, self.img_size))
-            if __name__ == "__main__":
-                path = "../../Global_collection/DataFaces/" + self.collection_list[i]
-            else:
-                path = "../Global_collection/DataFaces/" + self.collection_list[i]
+            path = "../Global_collection/DataFaces/" + self.collection_list[i]
             self.icon.addPixmap(QtGui.QPixmap(path).scaled(self.img_size, self.img_size),
                                 QtGui.QIcon.Normal,
                                 QtGui.QIcon.On)
@@ -178,9 +196,9 @@ class Collection_widget(Ui_Collection):
         self.QVB_new_deck_widgetleyout.addWidget(self.deck_name)
 
 
-        """Цикл размещения нопок с картами в области создания колоды"""
+        """Цикл размещения кнопок с картами в области создания колоды"""
         for i in range(self.deck_len):
-            self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+            self.pushButton = QtWidgets.QPushButton()
             self.pushButton.setObjectName("pushButton_deck" + str(i))
             self.pushButton.setSizePolicy(self.sizePolicy)
             self.pushButton.setMinimumSize(QtCore.QSize(self.img_size // 2, self.img_size // 2))
@@ -205,8 +223,56 @@ class Collection_widget(Ui_Collection):
         """добавляем в коно ввода имени колоды подсказку для пользователя"""
         self.deck_name.setPlaceholderText('Введи имя колоды')
 
+        """добавляем закладку в которую помещаем разметку для создания колоды"""
         self.tab_deck_Widget.removeTab(0)
-        self.tab_deck_Widget.insertTab(0, self.new_deck_widget, 'Создание колоды')
+        self.tab_deck_Widget.addTab(self.new_deck_widget, 'Создание колоды')
+
+        self.deck_selector()
+
+    def deck_selector(self):
+        """создаём область куда будут загружаться уже созданные колоды"""
+
+        """прокручиваемая область для того что бы можно было загружать много колод"""
+        self.scrollArea_selector = QtWidgets.QScrollArea(self.centralwidget)
+        self.scrollArea.setWidgetResizable(True)
+
+        """виджет который будет помещён на скролл эреа"""
+        self.deck_selector_scrollArea_widget = QtWidgets.QWidget()
+        self.deck_selector_scrollArea_widget.setGeometry(QtCore.QRect(0, 0, int((self.img_size // 2)*1.1),
+                                                                      int((self.img_size // 2)*self.decks_len*1.1)))
+        self.scrollAreaWidgetContents_2.setSizePolicy(self.sizePolicy)
+        self.QVB_selector_widget_scrollArea_leyout = QtWidgets.QVBoxLayout()
+        self.deck_selector_scrollArea_widget.setLayout(self.QVB_selector_widget_scrollArea_leyout)
+        self.scrollArea_selector.setWidget(self.deck_selector_scrollArea_widget)
+
+        """Создаём кнопки с колодами и иконками первой карты из колоды"""
+        for k, i in self.decks.items():
+            for p in self.decks[k]:
+                if p:
+                    icon_path = p
+                    break
+            icon = QtGui.QIcon()
+            icon.addPixmap(QtGui.QPixmap(icon_path).scaled(self.img_size // 2, self.img_size // 2),
+                                QtGui.QIcon.Normal,
+                                QtGui.QIcon.On)
+            self.pushButton = QtWidgets.QPushButton()
+            self.pushButton.setIcon(icon)
+            self.pushButton.setIconSize(QtCore.QSize(self.img_size, self.img_size))
+            self.pushButton.setObjectName("pushButton_decks" + ' - ' + str(k))
+            print(self.pushButton.objectName())
+            self.pushButton.setSizePolicy(self.sizePolicy)
+            self.pushButton.setMinimumSize(QtCore.QSize(self.img_size // 2, self.img_size // 2))
+            self.QVB_selector_widget_scrollArea_leyout.addWidget(self.pushButton)
+            self.buttons_decks[k] = self.pushButton
+            self.buttons_decks[k].clicked.connect(self.on_click_lambda('decks', k))
+
+
+
+        self.tab_deck_Widget.addTab(self.scrollArea_selector, 'Сохранённые колоды')
+
+
+
+
 
     def on_click_lambda(self, x, y):
         '''создаём "замыкание" для того что бы лямбда правильно работала'''

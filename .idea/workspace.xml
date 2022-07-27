@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec4758e8-e33a-46fa-97ac-f4bf59ce9464" name="Changes" comment="Создал систему хранения колод, добавил функцию сохранения колод в  collection">
+    <list default="true" id="ec4758e8-e33a-46fa-97ac-f4bf59ce9464" name="Changes" comment="Создал симтему вкладок в поле работы с колодами">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Global/variables.py" beforeDir="false" afterPath="$PROJECT_DIR$/Global/variables.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Start.py" beforeDir="false" afterPath="$PROJECT_DIR$/Start.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/collection.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/cards/collection.pkl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cards/decks.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/cards/decks.pkl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/menus/collection.py" beforeDir="false" afterPath="$PROJECT_DIR$/menus/collection.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/menus/pyqt_files/collection/collection.py" beforeDir="false" afterPath="$PROJECT_DIR$/menus/pyqt_files/collection/collection.py" afterDir="false" />
@@ -165,8 +168,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.Start" />
-        <item itemvalue="Python.collection (1)" />
         <item itemvalue="Python.collection" />
+        <item itemvalue="Python.collection (1)" />
         <item itemvalue="Python.box (1)" />
         <item itemvalue="Python.Test" />
       </list>
@@ -370,7 +373,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658637722685</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Создал симтему вкладок в поле работы с колодами">
+      <created>1658759247876</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1658759247876</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -409,6 +419,7 @@
     <MESSAGE value="Поработал над Box" />
     <MESSAGE value="Начал переработку collection" />
     <MESSAGE value="Создал систему хранения колод, добавил функцию сохранения колод в  collection" />
-    <option name="LAST_COMMIT_MESSAGE" value="Создал систему хранения колод, добавил функцию сохранения колод в  collection" />
+    <MESSAGE value="Создал симтему вкладок в поле работы с колодами" />
+    <option name="LAST_COMMIT_MESSAGE" value="Создал симтему вкладок в поле работы с колодами" />
   </component>
 </project>
