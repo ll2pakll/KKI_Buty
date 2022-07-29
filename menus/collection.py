@@ -2,7 +2,6 @@ from menus.pyqt_files.collection.collection import *
 from Help_Fn.functions import *
 import Global.variables as gv
 from PyQt5.QtWidgets import QDesktopWidget
-import functools
 
 
 class Collection_widget(Ui_Collection):
@@ -88,17 +87,6 @@ class Collection_widget(Ui_Collection):
         self.pbtn_collection_creater()
         self.pbtn_deck_creater()
         self.add_connects()
-        self.location_on_the_screen()
-
-
-    def location_on_the_screen(self):
-        '''Это функция которая позволяет позиционировать окно при запуске'''
-        sg = QDesktopWidget().screenGeometry()
-        widget = self.Collection.geometry()
-
-        x = (sg.width() - widget.width())//2
-        y = 0
-        self.Collection.move(x, y)
 
     def add_connects(self):
         '''связь сигналов'''
@@ -143,14 +131,13 @@ class Collection_widget(Ui_Collection):
         elif self.Collection.sender().objectName() == "clear_deck":
 
             self.buttons_deck_path_list = self.buttons_deck_path_list_empty.copy()
-            print(self.buttons_deck_path_list)
             for i in self.buttons_deck:
                 i.setIcon(QtGui.QIcon())
 
         elif self.Collection.sender().objectName() == "save_deck":
             deck_empty = self.buttons_deck_path_list == self.buttons_deck_path_list_empty
             deck_name_text_empty = self.deck_name.text() == ''
-            def deck_saved():
+            def deck_save():
                 pickle_save(self.decks, gv.path_decks)
                 QtWidgets.QMessageBox.information(self.Collection, 'Колода сохранена',
                                                   f'Колода сохранена под именем "{self.deck_name.text()}"')
@@ -163,13 +150,13 @@ class Collection_widget(Ui_Collection):
                                                 'Пока вы её не наполните вы не сможете с ней играть')
             if not deck_empty and not deck_name_text_empty and self.deck_name.text() not in self.decks.keys():
                 self.decks[self.deck_name.text()] = self.buttons_deck_path_list
-                deck_saved()
+                deck_save()
             elif not deck_empty and not deck_name_text_empty and self.deck_name.text() in self.decks.keys():
                 if QtWidgets.QMessageBox.question(self.Collection, 'Такая колода уже есть',
                                                   f'Колода с именем "{self.deck_name.text()}" уже существует, '
                                                   f'вы хотите перезаписать её?') == 16384:
                     pickle_save(self.decks, gv.path_decks)
-                    deck_saved()
+                    deck_save()
 
     def pbtn_collection_creater(self):
         '''Создание кнопок с изображениями из коллекции'''
@@ -186,6 +173,7 @@ class Collection_widget(Ui_Collection):
         self.indent_between_cards = 1.1
         '''Создание области для работы с колодами'''
         self.new_deck_widget = QtWidgets.QWidget()
+        self.new_deck_widget.setMinimumWidth(int(self.img_size//2*1.35))
         self.QVB_deck = QtWidgets.QVBoxLayout()
         self.new_deck_widget.setLayout(self.QVB_deck)
 
