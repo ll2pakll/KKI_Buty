@@ -19,4 +19,4 @@ path_global_collection_datafaces = os.path.abspath(os.path.join(os.path.dirname(
 first_start = False
 
 '''Ресурсы'''
-box_quantity = 227
+box_quantity = 239

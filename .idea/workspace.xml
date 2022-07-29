@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec4758e8-e33a-46fa-97ac-f4bf59ce9464" name="Changes" comment="Небольшие дороботки">
+    <list default="true" id="ec4758e8-e33a-46fa-97ac-f4bf59ce9464" name="Changes" comment="Изменил имена импортированных из QTdesigner форм, что бы не было одинаковых названий файлов">
+      <change afterPath="$PROJECT_DIR$/menus/playground.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Global/variables.py" beforeDir="false" afterPath="$PROJECT_DIR$/Global/variables.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Start.py" beforeDir="false" afterPath="$PROJECT_DIR$/Start.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cards/collection.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/cards/collection.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menus/box.py" beforeDir="false" afterPath="$PROJECT_DIR$/menus/box.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menus/collection.py" beforeDir="false" afterPath="$PROJECT_DIR$/menus/collection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menus/pyqt_files/collection/collection.py" beforeDir="false" afterPath="$PROJECT_DIR$/menus/pyqt_files/collection/collection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/menus/pyqt_files/playground/DS_playground.py" beforeDir="false" afterPath="$PROJECT_DIR$/menus/pyqt_files/playground/DS_playground.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/menus/start_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/menus/start_menu.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -103,27 +100,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="box (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Code" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/menus" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/menus/box.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="collection" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Code" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -137,6 +113,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/menus/collection.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="playground" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Code" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/menus" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/menus/playground.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -169,10 +166,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.Start" />
-        <item itemvalue="Python.DS_general_window" />
         <item itemvalue="Python.start_menu" />
+        <item itemvalue="Python.playground" />
+        <item itemvalue="Python.DS_general_window" />
         <item itemvalue="Python.collection" />
-        <item itemvalue="Python.box (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -416,7 +413,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659126208633</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Изменил имена импортированных из QTdesigner форм, что бы не было одинаковых названий файлов">
+      <created>1659136341601</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1659136341601</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -461,6 +465,7 @@
     <MESSAGE value="&quot;Card&quot; работает, следующим шагом переделаю всё так что бы использовался этот класс" />
     <MESSAGE value="Переделал коллекцию под работу с классом &quot;Card&quot;" />
     <MESSAGE value="Небольшие дороботки" />
-    <option name="LAST_COMMIT_MESSAGE" value="Небольшие дороботки" />
+    <MESSAGE value="Изменил имена импортированных из QTdesigner форм, что бы не было одинаковых названий файлов" />
+    <option name="LAST_COMMIT_MESSAGE" value="Изменил имена импортированных из QTdesigner форм, что бы не было одинаковых названий файлов" />
   </component>
 </project>

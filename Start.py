@@ -1,11 +1,10 @@
-import sys
 import Global.variables as gv
 from menus.pyqt_files.general_window.DS_general_window import *
 from menus.start_menu import Start_menu_widget
 from menus.box import Box_widget
 from menus.collection import Collection_widget
+from menus.playground import Playground_widget
 from Help_Fn.functions import *
-from PyQt5.QtWidgets import QDesktopWidget
 
 class General_window_widget(Ui_general_window):
     def __init__(self,  MainWindow):
@@ -23,36 +22,34 @@ class General_window_widget(Ui_general_window):
         self.add_widget(Start_menu_widget)
         self.add_widget(Box_widget)
         self.add_widget(Collection_widget)
+        self.add_widget(Playground_widget)
 
         self.first_run()
 
         self.add_connects()
-
 
     def add_connects(self):
         '''связь сигналов'''
         self.exit_qpb.clicked.connect(self.slt_exit)
         self.start_menu_qpb.clicked.connect(self.slt_set_start_menu)
 
-
-
     def add_widget(self, class_widget):
-        '''функция принимает класс виджета добавляет окно этого виджета
+        """функция принимает класс виджета добавляет окно этого виджета
         в стек вджетов, а так же добавляет ссылки на это окно виджета и экземпляр виджета
         в словарь виджетов, с ключём по названию виджета, где [0] - экземпляр виджета,
-        [1] - окно виджета'''
+        [1] - окно виджета. Для того что бы не было ошибки надо добавить в __init__
+        передаваемого виджета 2 дополнительных позиционных аргумента
+        "stacked_widget_general=None, stack_dict_general=None" """
 
         # создаём окно которое будет пропущено через преобразования в виджете
         window = QtWidgets.QMainWindow()
         # создаём экземпляр класса виджета и пропускаем через него окно,
-        # а так же посылаем в него глобальный стак окон и словарь виджетов
+        # а так же посылаем в него глобальный стек окон и словарь виджетов
         widget = class_widget(window, self.stacked_widget_general, self.stack_dict_general)
         # добавляем в словарь ссылку на виджет и окно
         self.stack_dict_general[window.objectName()] = [widget, window]
         # добовляем окнов стек виджетов
         self.stacked_widget_general.addWidget(self.stack_dict_general[window.objectName()][1])
-
-
 
     def first_run(self):
         """Проверяем запускает ли пользователь игру впервые.

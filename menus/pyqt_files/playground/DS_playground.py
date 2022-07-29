@@ -11,11 +11,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(1226, 720)
-        self.gridLayout = QtWidgets.QGridLayout(Dialog)
+class Ui_playground(object):
+    def setupUi(self, playground):
+        playground.setObjectName("playground")
+        playground.resize(1226, 720)
+        self.gridLayout = QtWidgets.QGridLayout(playground)
         self.gridLayout.setObjectName("gridLayout")
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
@@ -51,19 +51,19 @@ class Ui_Dialog(object):
         self.gridLayout.setColumnStretch(1, 5)
         self.gridLayout.setColumnStretch(2, 1)
 
-        self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.retranslateUi(playground)
+        QtCore.QMetaObject.connectSlotsByName(playground)
 
-    def retranslateUi(self, Dialog):
+    def retranslateUi(self, playground):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        playground.setWindowTitle(_translate("playground", "Dialog"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
-    ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
+    playground = QtWidgets.QDialog()
+    ui = Ui_playground()
+    ui.setupUi(playground)
+    playground.show()
     sys.exit(app.exec_())

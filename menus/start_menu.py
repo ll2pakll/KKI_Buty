@@ -15,12 +15,15 @@ class Start_menu_widget(Ui_Start_menu):
 
     def add_connects(self):
         '''связь сигналов'''
-        self.Play.clicked.connect(lambda: self.on_click(self.Play.objectName()))
+        self.Play.clicked.connect(self.playground_btn_clicked)
         self.Collection.clicked.connect(self.collection_btn_clicked)
 
     # инструкции при нажатии
     def collection_btn_clicked(self):
         self.stacked_widget_general.setCurrentWidget(self.stack_dict_general["Collection"][1])
+
+    def playground_btn_clicked(self):
+        self.stacked_widget_general.setCurrentWidget(self.stack_dict_general["playground"][1])
 
     def on_click(self, btn_name):
         if btn_name == "Play":
