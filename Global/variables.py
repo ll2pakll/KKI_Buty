@@ -12,9 +12,11 @@ path_start_menu = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 
 path_collection = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cards', 'collection.pkl'))
 path_decks = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cards', 'decks.pkl'))
 path_global_collection = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'Global_collection'))
+path_global_collection_datafaces = os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                    '..', '..', 'Global_collection', 'DataFaces'))
 
 '''Чекеры'''
 first_start = False
 
 '''Ресурсы'''
-box_quantity = 120
+box_quantity = 156

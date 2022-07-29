@@ -125,43 +125,30 @@ class Card:
     качестве метаданных изображений. Тут реализованы методы которые дают возможность
     получить информацию о свойствах карты, дают возможность перемещять её на лейауты
     и так далее"""
-    def __init__(self, path, obgect_name='Card'):
-        """Создаём класс метадата для возможности работы с метаданными карты"""
-        self.meta_data = Meta_data()
+    def __init__(self, path=None, obgect_name='Card', size=None):
+        """в эту переменную передаём путь к изображению"""
+        self.path = path
 
-        """Считываем метаданнные из карты"""
-        self.meta = self.meta_data.read(path)
-
-        """Если у этого изображения уже есть экземпляр класса, то функция возвращает
-        этот класс, если экземпляр класса не создаётся, то он создаётся записывается в 
-        метаданные"""
-        try:
-            return self.meta['card_class']
-        except:
-            """в эту переменную передаём путь к изображению"""
-            self.path = path
-
-            '''задаём отображаемый размер изображений'''
+        '''задаём отображаемый размер изображений'''
+        if size:
+            self.img_size = size
+        else:
             self.img_size = QDesktopWidget().width() // 10
 
-            self.sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
-            self.sizePolicy.setHorizontalStretch(0)
-            self.sizePolicy.setVerticalStretch(0)
+        self.sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        self.sizePolicy.setHorizontalStretch(0)
+        self.sizePolicy.setVerticalStretch(0)
 
-            self.pushButton = QtWidgets.QPushButton()
-            self.pushButton.setObjectName(obgect_name)
-            self.pushButton.setSizePolicy(self.sizePolicy)
-            self.pushButton.setMinimumSize(QtCore.QSize(self.img_size, self.img_size))
-            icon = QtGui.QIcon()
-            icon.addPixmap(QtGui.QPixmap(self.path).scaled(self.img_size, self.img_size),
-                                QtGui.QIcon.Normal,
-                                QtGui.QIcon.On)
-            self.pushButton.setIcon(icon)
-            self.pushButton.setIconSize(QtCore.QSize(self.img_size, self.img_size))
-
-            self.meta['card_class'] = self
-            print(self.meta)
-            # self.meta_data.save(path, self.meta)
+        self.pushButton = QtWidgets.QPushButton()
+        self.pushButton.setObjectName(obgect_name)
+        self.pushButton.setSizePolicy(self.sizePolicy)
+        self.pushButton.setMinimumSize(QtCore.QSize(self.img_size, self.img_size))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(self.path).scaled(self.img_size, self.img_size),
+                            QtGui.QIcon.Normal,
+                            QtGui.QIcon.On)
+        self.pushButton.setIcon(icon)
+        self.pushButton.setIconSize(QtCore.QSize(self.img_size, self.img_size))
 
     def set_layout(self, layout, greed=None, place=None):
         """функция помещает карту на нужный Layout. Первым аргументом передаётся
@@ -179,3 +166,6 @@ class Card:
 
     def get_pushButton(self):
         return self.pushButton
+
+    def get_obgect_name(self):
+        return self.pushButton.objectName()
