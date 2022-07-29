@@ -167,23 +167,33 @@ class Collection_widget(Ui_Collection):
         self.sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.sizePolicy.setHorizontalStretch(0)
         self.sizePolicy.setVerticalStretch(0)
-        for i in range(len(self.collection_list)):
-            self.pushButton = QtWidgets.QPushButton(self.gridWidget)
-            self.pushButton.setObjectName("pushButton" + str(i))
-            self.pushButton.setSizePolicy(self.sizePolicy)
-            self.pushButton.setMinimumSize(QtCore.QSize(self.img_size, self.img_size))
-            path = "../Global_collection/DataFaces/" + self.collection_list[i]
-            self.icon.addPixmap(QtGui.QPixmap(path).scaled(self.img_size, self.img_size),
-                                QtGui.QIcon.Normal,
-                                QtGui.QIcon.On)
-            self.pushButton.setIcon(self.icon)
-            self.pushButton.setIconSize(QtCore.QSize(self.img_size, self.img_size))
-            self.gridLayout_3.addWidget(self.pushButton, i // 4, i % 4, 1, 1)
-            self.buttons_collection[i] = (self.pushButton, path)
+        # for i in range(len(self.collection_list)):
+        #     self.pushButton = QtWidgets.QPushButton(self.gridWidget)
+        #     self.pushButton.setObjectName("pushButton" + str(i))
+        #     self.pushButton.setSizePolicy(self.sizePolicy)
+        #     self.pushButton.setMinimumSize(QtCore.QSize(self.img_size, self.img_size))
+        #     path = "../Global_collection/DataFaces/" + self.collection_list[i]
+        #     self.icon.addPixmap(QtGui.QPixmap(path).scaled(self.img_size, self.img_size),
+        #                         QtGui.QIcon.Normal,
+        #                         QtGui.QIcon.On)
+        #     self.pushButton.setIcon(self.icon)
+        #     self.pushButton.setIconSize(QtCore.QSize(self.img_size, self.img_size))
+        #     self.gridLayout_3.addWidget(self.pushButton, i // 4, i % 4, 1, 1)
+        #     self.buttons_collection[i] = (self.pushButton, path)
+        #
+        #     '''создаём привязку нажатия к функции нажатия, посылаем индекс из списка
+        #     кнопок коллекции'''
+        #     self.buttons_collection[i][0].clicked.connect(self.on_click_lambda('collection', i))
 
-            '''создаём привязку нажатия к функции нажатия, посылаем индекс из списка
-            кнопок коллекции'''
+        #--------------------------------------------------
+        for i in range(len(self.collection_list)):
+            card = Card("../Global_collection/DataFaces/" + self.collection_list[i], "pushButton" + str(i))
+            card.set_layout(self.gridLayout_3, True, (i // 4, i % 4, 1, 1))
+            self.pushButton = card.get_pushButton()
+            self.buttons_collection[i] = (self.pushButton, card.get_path())
             self.buttons_collection[i][0].clicked.connect(self.on_click_lambda('collection', i))
+
+
 
     def pbtn_deck_creater(self):
         '''Создание области для работы с колодами'''
