@@ -1,6 +1,6 @@
 import sys
 import Global.variables as gv
-from menus.pyqt_files.general_window.general_window import *
+from menus.pyqt_files.general_window.DS_general_window import *
 from menus.start_menu import Start_menu_widget
 from menus.box import Box_widget
 from menus.collection import Collection_widget

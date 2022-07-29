@@ -1,4 +1,4 @@
-from menus.pyqt_files.collection.collection import *
+from menus.pyqt_files.collection.DS_collection import *
 from Help_Fn.functions import *
 import Global.variables as gv
 from PyQt5.QtWidgets import QDesktopWidget
@@ -58,7 +58,7 @@ class Collection_widget(Ui_Collection):
         self.decks_len = len(self.decks)
 
         """определяем размер колоды"""
-        self.deck_len = 6
+        self.deck_len = 8
 
         '''список кнопок в колоде'''
         self.buttons_deck = [None] * self.deck_len

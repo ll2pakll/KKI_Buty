@@ -1,7 +1,4 @@
-import Global.variables as gv
-import menus.box
-from menus.pyqt_files.start_menu.start_menu import *
-from Help_Fn.functions import *
+from menus.pyqt_files.start_menu.DS_start_menu import *
 from menus.box import *
 
 class Start_menu_widget(Ui_Start_menu):

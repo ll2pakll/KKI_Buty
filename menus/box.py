@@ -1,4 +1,4 @@
-from menus.pyqt_files.box.box import *
+from menus.pyqt_files.box.DS_box import *
 from Help_Fn.functions import *
 import Global.variables as gv
 
