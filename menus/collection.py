@@ -49,7 +49,7 @@ class Collection_widget(Ui_Collection):
         self.decks_len = len(self.decks)
 
         """определяем размер колоды"""
-        self.deck_len = 6
+        self.deck_len = 8
 
         '''список кнопок в колоде'''
         self.buttons_deck = [None] * self.deck_len
@@ -130,7 +130,8 @@ class Collection_widget(Ui_Collection):
             self.tab_deck_Widget.setCurrentIndex(0)
 
         elif self.Collection.sender().objectName() == "clear_deck":
-            self.buttons_deck_path_list = [None] * 6
+
+            self.buttons_deck_path_list = self.buttons_deck_path_list_empty.copy
             for i in self.buttons_deck:
                 i.setIcon(QtGui.QIcon())
 
@@ -186,11 +187,15 @@ class Collection_widget(Ui_Collection):
 
     def pbtn_deck_creater(self):
         '''Создание области для работы с колодами'''
+        self.scrollArea_deck = QtWidgets.QScrollArea()
 
         """На этом виджете будет размещаться создание новой колоды"""
         self.new_deck_widget = QtWidgets.QWidget()
+        self.new_deck_widget.setGeometry(QtCore.QRect(0, 0, int((self.img_size // 2) * 1.1),
+                                                                      int((self.img_size // 2) * self.deck_len * 1.1)))
         self.QVB_new_deck_widgetleyout = QtWidgets.QVBoxLayout()
         self.new_deck_widget.setLayout(self.QVB_new_deck_widgetleyout)
+        self.scrollArea_deck.setWidget(self.new_deck_widget)
 
         """Помещаем поле для ввода названия колоды на своё место"""
         self.QVB_new_deck_widgetleyout.addWidget(self.deck_name)
@@ -225,7 +230,7 @@ class Collection_widget(Ui_Collection):
 
         """добавляем закладку в которую помещаем разметку для создания колоды"""
         self.tab_deck_Widget.removeTab(0)
-        self.tab_deck_Widget.addTab(self.new_deck_widget, 'Создание колоды')
+        self.tab_deck_Widget.addTab( self.scrollArea_deck, 'Создание колоды')
 
         self.deck_selector()
 
@@ -233,8 +238,7 @@ class Collection_widget(Ui_Collection):
         """создаём область куда будут загружаться уже созданные колоды"""
 
         """прокручиваемая область для того что бы можно было загружать много колод"""
-        self.scrollArea_selector = QtWidgets.QScrollArea(self.centralwidget)
-        self.scrollArea.setWidgetResizable(True)
+        self.scrollArea_selector = QtWidgets.QScrollArea()
 
         """виджет который будет помещён на скролл эреа"""
         self.deck_selector_scrollArea_widget = QtWidgets.QWidget()
@@ -259,7 +263,6 @@ class Collection_widget(Ui_Collection):
             self.pushButton.setIcon(icon)
             self.pushButton.setIconSize(QtCore.QSize(self.img_size, self.img_size))
             self.pushButton.setObjectName("pushButton_decks" + ' - ' + str(k))
-            print(self.pushButton.objectName())
             self.pushButton.setSizePolicy(self.sizePolicy)
             self.pushButton.setMinimumSize(QtCore.QSize(self.img_size // 2, self.img_size // 2))
             self.QVB_selector_widget_scrollArea_leyout.addWidget(self.pushButton)
@@ -269,9 +272,6 @@ class Collection_widget(Ui_Collection):
 
 
         self.tab_deck_Widget.addTab(self.scrollArea_selector, 'Сохранённые колоды')
-
-
-
 
 
     def on_click_lambda(self, x, y):

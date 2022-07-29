@@ -1,5 +1,6 @@
 import DFLIMG
-import cv2
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QDesktopWidget
 
 import os
 import sys
@@ -117,3 +118,48 @@ class Path_generator:
 def pickle_save(obj, path):
     with open(path, 'wb') as f:
         pickle.dump(obj, f)
+
+
+class Card:
+    """Класс экземпляры которого будут являться картами и будут хранится в
+    качестве метаданных изображений. Тут реализованы методы которые дают возможность
+    получить информацию о свойствах карты, дают возможность перемещять её на лейауты
+    и так далее"""
+    def __init__(self, path, obgect_name):
+        """в эту переменную передаём путь к изображению"""
+        self.path = path
+
+        '''задаём отображаемый размер изображений'''
+        self.img_size = QDesktopWidget().width() // 10
+
+        self.sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        self.sizePolicy.setHorizontalStretch(0)
+        self.sizePolicy.setVerticalStretch(0)
+
+        self.pushButton = QtWidgets.QPushButton()
+        self.pushButton.setObjectName(obgect_name)
+        self.pushButton.setSizePolicy(self.sizePolicy)
+        self.pushButton.setMinimumSize(QtCore.QSize(self.img_size, self.img_size))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(self.path).scaled(self.img_size, self.img_size),
+                            QtGui.QIcon.Normal,
+                            QtGui.QIcon.On)
+        self.pushButton.setIcon(icon)
+        self.pushButton.setIconSize(QtCore.QSize(self.img_size, self.img_size))
+
+    def add_to_layout(self, layout, greed=None, place=None):
+        """функция помещает карту на нужный Layout. Первым аргументом передаётся
+        сам Layout, вторым вторм аргументом надо передавать True если мы хотим поместить
+        карту на сетку, третим место куда хотим поместить"""
+
+        if greed:
+            layout.addWidget(self.pushButton, place)
+
+        else:
+            layout.addWidget(self.pushButton)
+
+    def get_path(self):
+        return self.path
+
+    def get_pushButton(self):
+        return self.pushButton
