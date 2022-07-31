@@ -54,9 +54,6 @@ class Collection_widget(Ui_Collection):
         with open(gv.path_decks, 'rb') as f:
             self.decks = pickle.load(f)
 
-        """создаём переменную с количеством сохранённых колод"""
-        self.decks_len = len(self.decks)
-
         """определяем размер колоды"""
         self.deck_len = 8
 
@@ -86,12 +83,11 @@ class Collection_widget(Ui_Collection):
         '''функции'''
         self.pbtn_collection_creater()
         self.pbtn_deck_creater()
-        self.add_connects()
+        self.deck_selector()
 
-    def add_connects(self):
-        '''связь сигналов'''
-        self.clear_deck.clicked.connect(self.on_click)
-        self.save_deck.clicked.connect(self.on_click)
+    # def add_connects(self):
+    #     '''связь сигналов'''
+
 
     def on_click(self, sours=None, data=None):
         '''инструкция при нажатии сюда посылаем источник откуда пришёл сигнал
@@ -115,18 +111,36 @@ class Collection_widget(Ui_Collection):
             self.buttons_deck_path_list[data] = None
 
         elif sours == 'decks':
-            for i in range(len(self.decks[data])):
-                self.buttons_deck_path_list[i] = self.decks[data][i]
-                icon = QtGui.QIcon()
-                icon.addPixmap(QtGui.QPixmap(self.decks[data][i]).scaled(self.img_size // 2, self.img_size // 2),
-                                    QtGui.QIcon.Normal,
-                                    QtGui.QIcon.On)
-                self.buttons_deck[i].setIcon(icon)
-                self.buttons_deck[i].setIconSize(QtCore.QSize(self.img_size//2, self.img_size//2))
+            if self.choised_deck_key:
+                self.coloreEffect.setEnabled(False)
+            self.buttons_decks[data].setGraphicsEffect(self.coloreEffect)
+            self.coloreEffect.setEnabled(True)
+            self.choised_deck_key = data
+            self.selector_deck_name.setText(data)
 
-            self.deck_name.setText(data)
+        elif self.Collection.sender().objectName() == "open_deck":
+            if self.choised_deck_key:
+                for i in range(len(self.decks[self.choised_deck_key])):
+                    self.buttons_deck_path_list[i] = self.decks[self.choised_deck_key][i]
+                    icon = QtGui.QIcon()
+                    icon.addPixmap(QtGui.QPixmap(self.decks[self.choised_deck_key][i]).scaled(self.img_size // 2, self.img_size // 2),
+                                        QtGui.QIcon.Normal,
+                                        QtGui.QIcon.On)
+                    self.buttons_deck[i].setIcon(icon)
+                    self.buttons_deck[i].setIconSize(QtCore.QSize(self.img_size//2, self.img_size//2))
+
+            self.deck_name.setText(self.choised_deck_key)
 
             self.tab_deck_Widget.setCurrentIndex(0)
+
+        elif self.Collection.sender().objectName() == "delete_deck":
+            if QtWidgets.QMessageBox.question(self.Collection, 'Удалить колоду?',
+                                              f'Вы действительно хотите удалить колоду "{self.deck_name.text()}"?') == 16384:
+                self.decks.pop(self.choised_deck_key)
+                pickle_save(self.decks, gv.path_decks)
+                self.tab_deck_Widget.removeTab(1)
+                self.deck_selector()
+                self.tab_deck_Widget.setCurrentIndex(1)
 
         elif self.Collection.sender().objectName() == "clear_deck":
 
@@ -141,6 +155,8 @@ class Collection_widget(Ui_Collection):
                 pickle_save(self.decks, gv.path_decks)
                 QtWidgets.QMessageBox.information(self.Collection, 'Колода сохранена',
                                                   f'Колода сохранена под именем "{self.deck_name.text()}"')
+                self.tab_deck_Widget.removeTab(1)
+                self.deck_selector()
             if deck_empty:
                 QtWidgets.QMessageBox.warning(self.Collection, 'Внимание', 'Колода пуста. Наполните её прежде чем сохранять')
             elif deck_name_text_empty:
@@ -173,12 +189,14 @@ class Collection_widget(Ui_Collection):
         self.indent_between_cards = 1.1
         '''Создание области для работы с колодами'''
         self.new_deck_widget = QtWidgets.QWidget()
-        self.new_deck_widget.setMinimumWidth(int(self.img_size//2*1.35))
+        self.new_deck_widget.setMinimumWidth(int(self.img_size//2*1.4))
         self.QVB_deck = QtWidgets.QVBoxLayout()
         self.new_deck_widget.setLayout(self.QVB_deck)
 
         """Помещаем поле для ввода названия колоды на своё место"""
         self.QVB_deck.addWidget(self.deck_name)
+        """добавляем в коно ввода имени колоды подсказку для пользователя"""
+        self.deck_name.setPlaceholderText('Введи имя колоды')
 
         """Создание области с картами"""
         self.scrollArea_deck = QtWidgets.QScrollArea()
@@ -204,33 +222,41 @@ class Collection_widget(Ui_Collection):
         self.save_deck = QtWidgets.QPushButton()
         self.save_deck.setObjectName("save_deck")
         self.save_deck.setText('Save')
-        self.clear_deck = QtWidgets.QPushButton(self.centralwidget)
+        self.save_deck.clicked.connect(self.on_click)
+        self.clear_deck = QtWidgets.QPushButton()
         self.clear_deck.setObjectName("clear_deck")
         self.clear_deck.setText("Clear")
-        self.QVB_deck_layout.addWidget(self.clear_deck)
+        self.clear_deck.clicked.connect(self.on_click)
         self.QHB_save_clear_btn_layout.addWidget(self.save_deck)
         self.QHB_save_clear_btn_layout.addWidget(self.clear_deck)
         self.QVB_deck.addLayout(self.QHB_save_clear_btn_layout)
-
-        """добавляем в коно ввода имени колоды подсказку для пользователя"""
-        self.deck_name.setPlaceholderText('Введи имя колоды')
 
         """добавляем закладку в которую помещаем разметку для создания колоды"""
         self.tab_deck_Widget.removeTab(0)
         self.tab_deck_Widget.addTab(self.new_deck_widget, 'Создание колоды')
 
-        self.deck_selector()
-
     def deck_selector(self):
         """создаём область куда будут загружаться уже созданные колоды"""
+        """создаём основной виджет и помещяем на него вертикальный лейаут"""
+        self.selector_deck_widget = QtWidgets.QWidget()
+        self.selector_deck_widget.setMinimumWidth(int(self.img_size // 2 * 1.35))
+        self.QVB_decks = QtWidgets.QVBoxLayout()
+        self.selector_deck_widget.setLayout(self.QVB_decks)
+
+        """Создаём лейбл с названием колоды"""
+        self.selector_deck_name = QtWidgets.QLabel()
+        self.selector_deck_name.setText('Имя колоды')
+        self.selector_deck_name.setAlignment(QtCore.Qt.AlignCenter)
+        self.QVB_decks.addWidget(self.selector_deck_name)
 
         """прокручиваемая область для того что бы можно было загружать много колод"""
         self.scrollArea_selector = QtWidgets.QScrollArea()
+        self.QVB_decks.addWidget(self.scrollArea_selector)
 
         """виджет который будет помещён на скролл эреа"""
         self.deck_selector_scrollArea_widget = QtWidgets.QWidget()
         self.deck_selector_scrollArea_widget.setGeometry(QtCore.QRect(0, 0, int((self.img_size // 2)*self.indent_between_cards),
-                                                    int((self.img_size // 2)*self.decks_len*self.indent_between_cards)))
+                                                    int((self.img_size // 2)*len(self.decks)*self.indent_between_cards)))
         self.scrollAreaWidgetContents_2.setSizePolicy(self.sizePolicy)
         self.QVB_selector_widget_scrollArea_leyout = QtWidgets.QVBoxLayout()
         self.deck_selector_scrollArea_widget.setLayout(self.QVB_selector_widget_scrollArea_leyout)
@@ -248,7 +274,29 @@ class Collection_widget(Ui_Collection):
             self.buttons_decks[k] = card.pushButton
             self.buttons_decks[k].clicked.connect(self.on_click_lambda('decks', k))
 
-        self.tab_deck_Widget.addTab(self.scrollArea_selector, 'Сохранённые колоды')
+        """создаём в этом же лейауте горизонтальный лейаут и добавляем на него
+                кнопки save и clear"""
+        self.QHB_open_del_btn_layout = QtWidgets.QHBoxLayout()
+        self.open_deck = QtWidgets.QPushButton()
+        self.open_deck.setObjectName("open_deck")
+        self.open_deck.setText('Open')
+        self.open_deck.clicked.connect(self.on_click)
+        self.delete_deck = QtWidgets.QPushButton()
+        self.delete_deck.setObjectName("delete_deck")
+        self.delete_deck.setText("Delete")
+        self.delete_deck.clicked.connect(self.on_click)
+        self.QHB_open_del_btn_layout.addWidget(self.open_deck)
+        self.QHB_open_del_btn_layout.addWidget(self.delete_deck)
+        self.QVB_decks.addLayout(self.QHB_open_del_btn_layout)
+
+        self.tab_deck_Widget.addTab(self.selector_deck_widget, 'Сохранённые колоды')
+
+        """Создаём эффект цвета который будет использоваться для выбора активной колоды, которая
+        будет открываться при нажатии на кнопку Open. А так же создаём переменную в которой будет
+        хранится ключ выбранной колоды"""
+        self.coloreEffect = QtWidgets.QGraphicsColorizeEffect()
+        self.coloreEffect.setColor(QtGui.QColor(0, 0, 255, 255))
+        self.choised_deck_key = None
 
     def on_click_lambda(self, x, y):
         '''создаём "замыкание" для того что бы лямбда правильно работала'''

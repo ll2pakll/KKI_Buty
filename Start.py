@@ -3,6 +3,7 @@ from menus.pyqt_files.general_window.DS_general_window import *
 from menus.start_menu import Start_menu_widget
 from menus.box import Box_widget
 from menus.collection import Collection_widget
+from menus.game_start_menu import Game_start_menu_widget
 from menus.playground import Playground_widget
 from Help_Fn.functions import *
 
@@ -22,27 +23,31 @@ class General_window_widget(Ui_general_window):
         self.add_widget(Start_menu_widget)
         self.add_widget(Box_widget)
         self.add_widget(Collection_widget)
-        self.add_widget(Playground_widget)
+        self.add_widget(Game_start_menu_widget, main_window=False)
+        self.add_widget(Playground_widget, main_window=False)
 
         self.first_run()
 
         self.add_connects()
 
     def add_connects(self):
-        '''связь сигналов'''
+        """связь сигналов"""
         self.exit_qpb.clicked.connect(self.slt_exit)
         self.start_menu_qpb.clicked.connect(self.slt_set_start_menu)
 
-    def add_widget(self, class_widget):
+    def add_widget(self, class_widget, main_window=True):
         """функция принимает класс виджета добавляет окно этого виджета
         в стек вджетов, а так же добавляет ссылки на это окно виджета и экземпляр виджета
-        в словарь виджетов, с ключём по названию виджета, где [0] - экземпляр виджета,
+        в словарь виджетов, с ключём по названию объекта окна (смотри в ui), где [0] - экземпляр виджета,
         [1] - окно виджета. Для того что бы не было ошибки надо добавить в __init__
         передаваемого виджета 2 дополнительных позиционных аргумента
         "stacked_widget_general=None, stack_dict_general=None" """
 
         # создаём окно которое будет пропущено через преобразования в виджете
-        window = QtWidgets.QMainWindow()
+        if main_window:
+            window = QtWidgets.QMainWindow()
+        else:
+            window = QtWidgets.QDialog()
         # создаём экземпляр класса виджета и пропускаем через него окно,
         # а так же посылаем в него глобальный стек окон и словарь виджетов
         widget = class_widget(window, self.stacked_widget_general, self.stack_dict_general)
@@ -55,7 +60,7 @@ class General_window_widget(Ui_general_window):
         """Проверяем запускает ли пользователь игру впервые.
             Если так то он увидит первоночальные инструкции"""
 
-        if not gv.first_start:
+        if gv.first_start:
             first_start_massage = """В этой игре вы составляете свою коллекцию из фотографий случайных людей. \n
 Из этой коллекции вы можете составлять игровые колоды, с которыми вы будете сражаться против других игроков. \n
 Чем красивее ваши карты, тем больше у вас шансов на победу, потому что сила вашей карты будет зависеть от того, понравится ли она другим пользователям или нет. \n

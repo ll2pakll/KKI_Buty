@@ -23,7 +23,7 @@ class Start_menu_widget(Ui_Start_menu):
         self.stacked_widget_general.setCurrentWidget(self.stack_dict_general["Collection"][1])
 
     def playground_btn_clicked(self):
-        self.stacked_widget_general.setCurrentWidget(self.stack_dict_general["playground"][1])
+        self.stacked_widget_general.setCurrentWidget(self.stack_dict_general["game_start_menu"][1])
 
     def on_click(self, btn_name):
         if btn_name == "Play":

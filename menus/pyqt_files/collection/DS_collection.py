@@ -55,6 +55,7 @@ class Ui_Collection(object):
         self.scrollAreaWidgetContents_2.setMinimumSize(QtCore.QSize(1000, 1000))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_2)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.gridWidget = QtWidgets.QWidget(self.scrollAreaWidgetContents_2)
         self.gridWidget.setStyleSheet("background-color: rgb(82, 106, 113);")
