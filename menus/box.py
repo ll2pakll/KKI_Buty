@@ -29,15 +29,11 @@ class Box_widget(QtWidgets.QMainWindow, Ui_Box):
         #paths:
         """создаём список файлов в глобальной коллеции"""
         self.paths_list = self.files.get_tree(gv.path_global_collection)
+        self.len_paths_list = len(self.paths_list)
 
         """если нет файла с коллекцией игрока, он создаётся"""
-        if not os.path.isfile(gv.path_collection):
-            pickle_save(dict(), gv.path_collection)
-
         """открываем файл с коллекцией игрока"""
-        with open(gv.path_collection, 'rb') as f:
-            self.collection = pickle.load(f)
-        self.len_paths_list = len(self.paths_list)
+        self.collection = self.files.open_player_collection()
 
         """инициализируем экземпляр класса генерирующего пути
         для сравниваемых фотографий"""

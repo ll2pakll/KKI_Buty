@@ -1,6 +1,7 @@
 import DFLIMG
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDesktopWidget
+import Global.variables as gv
 
 import os
 import sys
@@ -74,6 +75,32 @@ class Files:
     def get_deep_file(self, path, deep, deep_2 = None):
         path = path.split('\\')[deep: deep_2]
         return os.path.join(*path)
+
+    def open_player_collection(self, sort=False):
+        """если нет файла с коллекцией игрока, он создаётся"""
+        if not os.path.isfile(gv.path_collection):
+            pickle_save(dict(), gv.path_collection)
+
+        '''открываем коллекцию и сортируем её по имени'''
+        with open(gv.path_collection, 'rb') as f:
+            collection = pickle.load(f)
+        if not sort:
+            return collection
+
+        collection_list = list()
+        for k, i in collection.items():
+            collection_list.append(k)
+        return sorted(collection_list)
+
+    def open_player_decks(self):
+        """если нет файла с колодами игрока, он создаётся"""
+        if not os.path.isfile(gv.path_decks):
+            pickle_save(dict(), gv.path_decks)
+
+        """открываем файл с колодами"""
+        with open(gv.path_decks, 'rb') as f:
+            return pickle.load(f)
+
 
 
 
@@ -169,3 +196,7 @@ class Card:
 
     def get_obgect_name(self):
         return self.pushButton.objectName()
+
+
+
+

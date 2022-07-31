@@ -1,7 +1,7 @@
 from menus.pyqt_files.collection.DS_collection import *
 from Help_Fn.functions import *
 import Global.variables as gv
-from PyQt5.QtWidgets import QDesktopWidget
+
 
 
 class Collection_widget(Ui_Collection):
@@ -12,11 +12,8 @@ class Collection_widget(Ui_Collection):
         '''делаем основное окно общедоступным для всего класса'''
         self.Collection = MainWindow
 
-        """меняем текущую дирректорию на корневой котолог"""
-        os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-        '''создаём экземлпяры служебных классов'''
-        self.Files = Files()
+        """создаём экземлпяры служебных классов"""
+        self.files = Files()
 
         """Создаём экземпляр иконки, что бы не создавать её
         каждый раз там где можно использовать этот экзмепляр"""
@@ -32,40 +29,25 @@ class Collection_widget(Ui_Collection):
         self.img_size = QDesktopWidget().width()//10
 
         """если нет файла с коллекцией игрока, он создаётся"""
-        if not os.path.isfile(gv.path_collection):
-            pickle_save(dict(), gv.path_collection)
-
-        '''открываем коллекцию и сортируем её по имени'''
-        with open(gv.path_collection, 'rb') as f:
-            self.collection = pickle.load(f)
-        self.collection_list = list()
-        for k, i in self.collection.items():
-            self.collection_list.append(k)
-        self.collection_list = sorted(self.collection_list)
+        """открываем коллекцию и сортируем её по имени"""
+        self.collection_list = self.files.open_player_collection(True)
 
         '''список кнопок в коллеции'''
         self.buttons_collection = [None] * len(self.collection_list)
 
         """если нет файла с колодами игрока, он создаётся"""
-        if not os.path.isfile(gv.path_decks):
-            pickle_save(dict(), gv.path_decks)
-
         """открываем файл с колодами"""
-        with open(gv.path_decks, 'rb') as f:
-            self.decks = pickle.load(f)
-
-        """определяем размер колоды"""
-        self.deck_len = 8
+        self.decks = self.files.open_player_decks()
 
         '''список кнопок в колоде'''
-        self.buttons_deck = [None] * self.deck_len
+        self.buttons_deck = [None] * gv.deck_len
 
         """список конопок сохранённых колод"""
         self.buttons_decks = {}
 
         '''список выбранных карт, сюда помещаются пути к изображениям для 
         кнопок колоды'''
-        self.buttons_deck_path_list_empty = [None]*self.deck_len
+        self.buttons_deck_path_list_empty = [None]*gv.deck_len
         self.buttons_deck_path_list = self.buttons_deck_path_list_empty.copy()
 
         '''определяем скорость прокрутки коллекции колёсиком мышки'''
@@ -75,14 +57,9 @@ class Collection_widget(Ui_Collection):
         self.Collection.resize(int(QDesktopWidget().screenGeometry().width() * 0.9),
                                int(QDesktopWidget().screenGeometry().height() * 0.89))
 
-        '''задаём размер поля в котором будут отображаться карты из коллекции'''
-        self.scrollAreaWidgetContents_2.setMinimumSize(
-            QtCore.QSize(int(self.img_size * 4 * 1.1), (len(self.collection_list) // 4)
-                         * int(self.img_size * 1.1) + self.img_size))
-
         '''функции'''
-        self.pbtn_collection_creater()
-        self.pbtn_deck_creater()
+        self.collection_creater()
+        self.deck_creater()
         self.deck_selector()
 
     # def add_connects(self):
@@ -174,8 +151,13 @@ class Collection_widget(Ui_Collection):
                     pickle_save(self.decks, gv.path_decks)
                     deck_save()
 
-    def pbtn_collection_creater(self):
-        '''Создание кнопок с изображениями из коллекции'''
+    def collection_creater(self):
+        '''Создание области изображениями из коллекции'''
+
+        '''задаём размер поля в котором будут отображаться карты из коллекции'''
+        self.scrollAreaWidgetContents_2.setMinimumSize(
+            QtCore.QSize(int(self.img_size * 4 * 1.1), (len(self.collection_list) // 4)
+                         * int(self.img_size * 1.1) + self.img_size))
 
         for i in range(len(self.collection_list)):
             path = gv.path_global_collection_datafaces + '\\' + self.collection_list[i]
@@ -185,7 +167,7 @@ class Collection_widget(Ui_Collection):
             self.buttons_collection[i][0].clicked.connect(self.on_click_lambda('collection', i))
 
 
-    def pbtn_deck_creater(self):
+    def deck_creater(self):
         self.indent_between_cards = 1.1
         '''Создание области для работы с колодами'''
         self.new_deck_widget = QtWidgets.QWidget()
@@ -204,13 +186,13 @@ class Collection_widget(Ui_Collection):
 
         self.scrollArea_deck_widget = QtWidgets.QWidget()
         self.scrollArea_deck_widget.setGeometry(QtCore.QRect(0, 0, int((self.img_size // 2) * self.indent_between_cards),
-                                                    int((self.img_size // 2) * self.deck_len * self.indent_between_cards)))
+                                                    int((self.img_size // 2) * gv.deck_len * self.indent_between_cards)))
         self.QVB_scrollArea_deck_widgetleyout = QtWidgets.QVBoxLayout()
         self.scrollArea_deck_widget.setLayout(self.QVB_scrollArea_deck_widgetleyout)
         self.scrollArea_deck.setWidget(self.scrollArea_deck_widget)
 
         """Цикл размещения кнопок с картами в области создания колоды"""
-        for i in range(self.deck_len):
+        for i in range(gv.deck_len):
             card = Card(obgect_name='card' + str(i), size=self.img_size // 2)
             card.set_layout(self.QVB_scrollArea_deck_widgetleyout)
             self.buttons_deck[i] = card.get_pushButton()
